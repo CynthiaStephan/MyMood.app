@@ -1,96 +1,51 @@
 # Gestion des Émotions des Étudiants
 
-Ce projet est une application web conçue pour permettre à des étudiants, superviseurs et administrateurs de gérer, suivre et visualiser les émotions des étudiants via une interface intuitive. L'application inclut des fonctionnalités de gestion des humeurs et des alertes pour des situations critiques.
+Une application web permettant de suivre et gérer le bien-être des étudiants à travers une interface intuitive. Conçue pour faciliter la communication entre étudiants et encadrants.
 
-## Fonctionnalités
+## Fonctionnalités principales
 
-### Fonctionnalités pour les Étudiants
-- **Authentification** : Connexion sécurisée avec JWT (header Bearer).
-- **Saisie de l’humeur** : 
-  - Inscription de l’humeur sur une échelle de 1 à 100.
-  - Dégradé de couleurs pour visualiser les émotions (ex. 1-20 = bleu, 21-40 = vert...).
-- **Bouton d'alerte** : 
-  - Déclenchement manuel d’une notification d'appel en cas de besoin.
-  - Envoi de la notification au superviseur et à l’administrateur.
+### Pour les étudiants
+- Notation de leur humeur (échelle 1-100) avec visualisation par couleurs
+- Système d'alerte en cas de besoin d'aide
 
-### Fonctionnalités pour les Superviseurs
-- **Authentification** : Connexion sécurisée avec JWT (header Bearer).
-- **Gestion des cohortes** : Visualisation des cohortes dont il est responsable.
-- **Alerte d'appel** : 
-  - Visualisation des alertes d’appel déclenchées par les étudiants.
-  - Option pour marquer une alerte comme "gérée".
-- **Notifications** : Réception de notifications par email lors de déclenchements d'alertes.
+### Pour les superviseurs
+- Suivi des cohortes d'étudiants
+- Gestion des alertes avec notifications
+- Historique des suivis
 
-### Fonctionnalités pour les Administrateurs
-- **Authentification** : Connexion sécurisée avec JWT (header Bearer).
-- **Gestion des utilisateurs** :
-  - Création, modification et suppression d’utilisateurs (étudiants, superviseurs, administrateurs).
-  - Attribution des rôles (étudiant, superviseur ou administrateur).
-- **Gestion des cohortes** :
-  - Création et suppression de cohortes.
-  - Assignation des utilisateurs aux cohortes.
-- **Blacklist** : Gestion d'une liste noire pour empêcher l’inscription d’étudiants spécifiques à certaines cohortes.
-- **Historique des humeurs** : Consultation des historiques de changement d’humeur des étudiants.
-- **Gestion des alertes** : Possibilité de marquer les alertes comme "gérées".
+### Pour les administrateurs
+- Gestion complète des utilisateurs et cohortes
+- Administration des accès et blacklist
+- Supervision globale du système
 
+## Technique
 
-## Architecture Technique
+- **Front** : HTML/CSS/JS
+- **Back** : Node.js, MySQL
+- **Sécurité** : Authentification JWT
+- **Déploiement** : Docker
 
-### Technologies Utilisées
-- **Back-end** : Node.js avec MySQL.
-- **Front-end** : HTML, CSS, JavaScript.
-- **Authentification** : Système JWT (header Bearer) pour sécuriser les actions des utilisateurs.
+## Installation
 
-### Base de Données
-- **Stockage des données** :
-  - Informations des utilisateurs (étudiants, superviseurs, administrateurs).
-  - Scores émotionnels des étudiants.
-  - Alertes d’appel.
-  - Cohortes et assignations.
-  - Historique des changements d’humeur.
+```bash
+# Cloner le projet
+git clone https://github.com/CynthiaStephan/MyMood.app.git
 
----
+# Installation des dépendances
+cd server && npm install
 
-## Installation et Lancement
+# Lancement avec Docker
+docker-compose up -d --build
+```
 
-### Prérequis
-- Node.js et npm installés sur votre machine.
-- MySQL configuré et accessible.
+## Documentation 
 
-### Étapes d'installation
-1. **Cloner le projet** :
-   ```bash
-   git clone https://github.com/CynthiaStephan/MyMood.app.git
-   ```
+* **[Gestion des Branches GitHub](./doc/Guidelines.md)**
 
-2. **Configurer le Back-end** :
-   - Installer les dépendances :
-     ```bash
-     cd backend
-     npm install
-     ```
-   - Configurer la base de données MySQL dans le fichier `.env`.
-   - Installer les dépendances :
-     ```bash
-     npm install
-     ```
-
-3. **Configurer le Front-end** :
-   - Accéder au dossier client :
-     ```bash
-     cd client
-     ```
-   - Lancer l'application avec un serveur local ou directement ouvrir les fichiers HTML dans un navigateur.
-  
-4. **Lancer les conteneurs Docker** :
-    - Build des conteneurs Docker :
-        ```bash
-        docker-compose build
-        ```
-    - Lancement des conteneurs Docker : 
-        ```bash
-        docker-compose up -d
-        ```
 ## Auteur
 
-Développé par l’équipe de projet dans le cadre d’un exercice pratique.
+Développé dans le cadre d'un projet de groupe à l'IMTS par : 
+
+<a href="https://github.com/CynthiaStephan/MyMood.app/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=CynthiaStephan/MyMood.app" />
+</a>
