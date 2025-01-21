@@ -8,16 +8,19 @@ Pour contribuer au projet, que ce soit pour ajouter une nouvelle fonctionnalité
 Avant de commencer à travailler sur une tâche, créez une branche dédiée pour vos modifications.  
 Utilisez la commande suivante :  
 ```bash
-git checkout -b type_branche/nom_branche
+git switch -c type_branche/nom_branche
 ```
 
 - **type_branche** :
   - `features` : pour une nouvelle fonctionnalité.
   - `bugs` : pour corriger un bug.
+  - `refactor` : pour restructurer ou améliorer le code sans changer son comportement.
+  - `docs` : pour mettre à jour ou améliorer la documentation.
   - `tests` : pour ajouter ou améliorer des tests.
+  - `chore` : pour des tâches de maintenance ou des modifications sans impact sur le code (par exemple, mise à jour de dépendances).
 
 - **nom_branche** : doit décrire clairement ce que vous faites.
-  - Exemples : `features/page-login`, `bugs/correction-modal`, `tests/update-auth-tests`.
+  - Exemples : `features/page-login`, `bugs/correction-modal`, `tests/update-auth-tests`, `refactor/clean-auth-service` .
 
 
 ## 2. **Travailler sur la branche**
