@@ -1,12 +1,8 @@
 const app = require('./app');
 const database = require('./database');
 
-database.authenticate().then(() => {
-    console.log('Connected to database!');
+const PORT = process.env.PORT || 3650;
 
-    database.sync({ force: false });
-});
-
-app.listen(process.env.PORT, () => {
-    console.log('Server listening on 3630');
+app.listen(PORT, () => {
+    console.log(`Server listening on ${PORT}`);
 });
