@@ -4,7 +4,7 @@ FROM node:lts
 WORKDIR /usr/app
 
 COPY package.json .
-COPY server.js .
+COPY src/index.js .
 
 RUN npm install
 
