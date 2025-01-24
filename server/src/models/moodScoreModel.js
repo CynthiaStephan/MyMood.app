@@ -23,4 +23,10 @@ const MoodScore = sequelize.define('mood_score', {
     },
 });
 
+// Associations
+MoodScore.associate = () => {
+    // MoodScore ↔ User (Many-to-One)
+    MoodScore.belongsTo(User, { foreignKey: 'id_user' });
+};
+
 module.exports = MoodScore;
