@@ -15,4 +15,10 @@ const Cohort = sequelize.define('cohort', {
     timestamps: false,
 });
 
+// Associations
+Cohort.associate = () => {
+    // Cohort ↔ User (Many-to-Many via CohortUser)
+    Cohort.belongsToMany(User, { through: CohortUser, foreignKey: 'id_cohort' });
+};
+
 module.exports = Cohort;

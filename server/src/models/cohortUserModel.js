@@ -1,9 +1,8 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require('../database');
 
-
-const Blacklist = sequelize.define('blacklist', {
-    id_blacklist: {
+const CohortUser = sequelize.define('cohortuser', {
+    id_cohort_user: {
         type: DataTypes.INTEGER,
         autoIncrement: true,
         primaryKey: true,
@@ -12,4 +11,4 @@ const Blacklist = sequelize.define('blacklist', {
     timestamps: false,
 });
 
-module.exports = Blacklist;
+module.exports = CohortUser;
