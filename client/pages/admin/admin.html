@@ -4,10 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="MYMOOD suivi de votre humeur">
-    <link rel="stylesheet" href="/assets/css/normalize.css">
-    <link rel="stylesheet" href="/assets/css/global.css">
-    <script src="/pages/admin/admin.js" defer></script>
-    <link rel="stylesheet" href="/pages/admin/admin.css">
+    <link rel="stylesheet" href="./client/assets/css/normalize.css">
+    <link rel="stylesheet" href="./client/assets/css/global.css">
+    <script src="./admin.js" defer></script>
+    <link rel="stylesheet" href="./admin.css">
     <title>MYMOOD</title>
 </head>
 <body>
@@ -20,9 +20,59 @@
             </div>
         </nav>
     </header>
+    <!-- Global Container-->
+    <section id="global-container">
+    <!-- Container Global des Formations-->
+    <section id="global-container-formation">
+    <!-- Container Gestion des Formations-->
+            <div id="container-gestion-formation"></div>
+    <!-- Container Création des Formations-->
+            <div id="container-creation-formation">
+                <div id="liste-formation">
+                    
+                    
 
+                </div>
+                <div id="btn-delete-formation">
+                    <input type="submit" value="Supprimer formation" id="btn-delete-formation" name="btn-delete-formation">  
+                  </div>
+                <div id="creation-formation">
+                    <input type="text" id="new-formation" name="new-formation" placeholder="Nouvelle formation" minlength="2" maxlength="25" required>
+                    <input type="submit" id="btn-formation-validation" name="btn-formation-validation" value="Créer">
+                </div>
+                
+            </div>
+    </section>
+    
 
-      <!--Bouton décnnexion mobile-->
+    <!-- Container Global des Utilisateurs-->
+    <section id="global-container-user">
+    <!-- Container Création d'Utilisateur-->
+            <div id="container-creation-user">
+                <input type="text" id="prenom" name="prenom" placeholder="Prénom" minlength="2" maxlength="25" required>
+                <input type="text" id="nom" name="nom" placeholder="Nom" minlength="2" maxlength="25" required>
+                <input type="text" id="mail" name="mail" placeholder="Adresse-mail" minlength="2" maxlength="25" required>
+                <select name="formation-choice" id="formation-choice">
+                    <option value="">--Choisir une formation--</option>
+                    
+
+                  </select>
+                  <select name="user-categorie-choice" id="user-categorie-choice">
+                    <option value="">--Choisir une categorie--</option>
+                    <option value="stagiaire">Stagiaire</option>
+                    <option value="superviseur">Superviseur</option>
+                    <option value="administrateur">Administrateur</option>
+
+                  </select>
+            </div>
+    <!-- Container Gestion des Utilisateurs-->
+            <div id="container-gestion-users">
+
+            </div>
+    </section>
+</section>
+
+      <!--Bouton déconnexion mobile-->
     <footer>
       <input type="button" name="logout-responsive" id="logout-responsive" value="Déconnexion">
     </footer>
