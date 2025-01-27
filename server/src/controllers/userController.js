@@ -94,7 +94,7 @@ class UserController {
 
         try {
 
-            const deletedUser = await UserModel.destroy({ where: {id_user: id} });
+            const deletedUser = await UserModel.destroy({ where: {user_id: id} });
 
             if(deletedUser === 0){
                 return res.status(404).json({ error : 'User not found'});

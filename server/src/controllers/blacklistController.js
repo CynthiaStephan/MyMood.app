@@ -1,5 +1,5 @@
 // controllers/blacklistController.js
-const BlacklistModel = require('../models/blacklist');
+const BlacklistModel = require('../models/blacklistModel');
 
 module.exports = {
   // Ajouter un étudiant à la blacklist

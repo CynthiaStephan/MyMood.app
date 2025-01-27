@@ -1,11 +1,22 @@
 require('dotenv').config();
 const app = require('./app');
 const sequelize = require('./database');
-require('./models/userModel');
-require('./models/blacklistModel');
-require('./models/cohortModel');
-require('./models/cohortUserModel');
-require('./models/moodScoreModel');
+
+// Models import
+const User = require('./models/userModel');
+const Blacklist = require('./models/blacklistModel');
+const Cohort = require('./models/cohortModel');
+const CohortUser = require('./models/cohortUserModel');
+const MoodScore = require('./models/moodScoreModel');
+
+const models = { User, Blacklist, Cohort, CohortUser, MoodScore };
+
+Object.values(models).forEach((model) => {
+    if (model.associate) {
+        model.associate(models);
+    }
+});
+
 
 (async () => {
   try {
