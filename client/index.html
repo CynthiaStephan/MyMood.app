@@ -3,11 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MyMood</title>
-    <link rel="stylesheet" href="./assets/css/normalize.css">
-    <link rel="stylesheet" href="./assets//css/global.css">
+    <meta name="description" content="MYMOOD tracker d'humeur, pour le bien-être de tous">
+    <link rel="stylesheet" href="./client/assets/css/normalize.css">
+    <link rel="stylesheet" href="./client/assets/css/global.css">
+    <script src="./index.js" defer></script>
+    <link rel="stylesheet" href="./index.css">
+    <title>MYMOOD</title>
 </head>
 <body>
-    
+    <!-- Navbar vide / barre Bleu-->
+    <header>
+        <nav>
+            <div>
+
+            </div>
+        </nav>
+    </header>
+        <!--Formulaire de connexion-->
+        <form action="login-form." method="post">
+            <fieldset>
+                <div class="champ">
+                    <input type="text" id="login" name="login" minlength="2" maxlength="25" required
+                    placeholder="Login">
+                  </div>
+                  <div class="champ">
+                    <input type="password" id="password" name="password" minlength="2" maxlength="25" required 
+                    placeholder="Password">
+                  </div>
+            </fieldset>
+            <input type="submit" value="Connect">
+        </form>
+
 </body>
 </html>

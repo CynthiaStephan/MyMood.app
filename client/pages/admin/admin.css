@@ -34,11 +34,31 @@ input[type="button"]:hover{
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
 
 }
+/* Container Global*/
+#global-container{
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 30px;
+    gap: 25px;
+    justify-content: center;
+}
+/* Container Formation*/
+#global-container-formation{
+    display: flex;
+    width: 500px;
+    justify-content: center;
+    background-color: #D91E41;
+    border: #1E1C59 1px solid;
+    border-radius: 5px;
+}
 
-
-
-
-
+/* Container User*/
+#global-container-user{
+    display: flex;
+    background-color: #D91E41;
+    border: #1E1C59 1px solid;
+    border-radius: 5px; 
+}
 
 /* Bouton logout mobile*/
 #logout-responsive{

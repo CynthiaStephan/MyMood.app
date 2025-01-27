@@ -4,13 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="MYMOOD suivi de votre humeur">
-    <link rel="stylesheet" href="/assets/css/normalize.css">
-    <link rel="stylesheet" href="/assets/css/global.css">
-    <script src="/pages/profils/profils.js" defer></script>
-    <link rel="stylesheet" href="/pages/profils/profils.css">
+    <link rel="stylesheet" href="./client/assets/css/normalize.css">
+    <link rel="stylesheet" href="./client/assets/css/global.css">
+    <script src="./profils.js" defer></script>
+    <link rel="stylesheet" href="./profils.css">
     <title>MYMOOD</title>
 </head>
 <body>
+    <!-- Navbar vide / barre Bleu-->
     <header>
         <nav>
             <div>
@@ -18,6 +19,7 @@
             </div>
         </nav>
     </header>
+    <!-- Formulaire du Profils-->
     <div class="profil-container">
         <form action="profil-form." method="post">
             <fieldset>
@@ -38,6 +40,8 @@
                     placeholder="Confirmer nouveau mot de passe">
                   </div>
             </fieldset>
+          <!-- Bouton Valider / Annuler-->
+
             <input type="reset" value="Annuler" id="cancel">
             <input type="submit" value="Valider" name="validation" id="validation">
         </form>
