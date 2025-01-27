@@ -34,7 +34,6 @@ input[type="button"]:hover{
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
 
 }
-
 /* Container Global*/
 #global-container{
     display: flex;
@@ -60,11 +59,6 @@ input[type="button"]:hover{
     border: #1E1C59 1px solid;
     border-radius: 5px; 
 }
-
-
-
-
-
 
 /* Bouton logout mobile*/
 #logout-responsive{

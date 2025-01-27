@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="normalize.css">
+    <link rel="stylesheet" href="/client/pages/mood-main-stagiaire/mood.css">
+    <title>Mood Stagiaire</title>
+</head>
+<body>
+    <nav>
+        <div class="navbar-container">
+            <input type="button" name="logout" id="logout" value="Déconnexion">
+            <input type="button" name="profils" id="profils" value="Profils">
+        </div>
+    </nav>
+
+    <div>
+        <p>Cet outil est conçu pour vous permettre de communiquer votre Mood. </p>
+        <p>Grace à ce Mood, nous savons si vous allez bien ou si vous avez besoin d’aide. En cas de besoin vous pouvez appuyer sur le bouton d’appel. Cela enverra une notification à votre formateur ainsi qu’a la médiation. </p>
+        <p>En cas d’urgence, manifestez vous auprès de la personne de l’équipe la plus proche</p>
+    </div>
+    
+    <section id="moodSection">
+        
+
+        <div class="btnDiv">
+            <button class="callBtn">Appel</button>
+        </div>
+
+        <div class="sliderDiv">
+
+            <div><p>Je me sens mal</p></div>
+
+                <div class="slidecontainer">
+                    <input type="range" orient="vertical" min="1" max="100" value="1" class="slider" id="myRange">
+                </div>
+               
+            <div><p>Tout est OK.</p></div>
+
+        </div>
+
+    </section>
+    
+    <section>
+
+        
+    </section>
+
+    <footer>
+        <input type="button" name="logout-responsive" id="logout-responsive" value="Déconnexion">
+      </footer>
+</body>
+</html>

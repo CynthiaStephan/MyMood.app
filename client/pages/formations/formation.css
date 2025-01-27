@@ -1,0 +1,113 @@
+:root {
+    --light-blue: #EFF2F7;
+    --IMTS-blue: #1E1C59;
+    --IMTS-red : #D91E41;
+    --font: "Inter", serif;
+    --paragraph: Italic 1rem "Inter", serif;
+
+}
+
+/*--------------------------------------------NAVBAR--------------------------------------------*/
+nav {
+    height: 4rem;
+    background-color: var(--IMTS-blue);
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.navBtn{ 
+    
+    background-color: white;
+    border: 1px solid #1E1C59 ;
+    border-radius: 5px;
+    color: #D91E41;
+    padding: 12px;
+    width: 120px;
+    height: 40px;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.navBtn:hover{
+    background-color: #dfdfe8;
+    transform: scale(1.02);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+/*--------------------------------------------SECTION-INFO--------------------------------------------*/
+
+#formation-infos {
+    display: flex;
+    justify-content: space-around;
+}
+
+.average-mood {
+    display: flex;
+    align-items: center;
+    gap: 5%;
+}
+
+.average {
+    white-space: nowrap;
+}
+
+.slider {
+    width: 250px;
+    height: 10px;
+    appearance: none;
+    background: linear-gradient(to right,#00FF4D, #FFD25E, #FF0000);
+    border-radius: 50px;
+}
+
+.slider::-moz-range-thumb {
+    cursor: pointer;
+    border-radius: 50px;
+    width: 25px;
+    height: 25px;
+    border: none;
+    background: #FFFFFF;
+    filter: drop-shadow(0px 5px 4px rgba(0, 0, 0, .25));
+}
+
+.slidecontainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #EFF2F7;
+    width: 330px;
+    height: 50px;
+    border-radius: 50px;
+}
+
+/*--------------------------------------------SECTION STAGIAIRES--------------------------------------------*/
+
+#studentStatus {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 5% 10%;
+}
+
+.infoPerson {
+    background-color: var(--light-blue);
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    border-radius: 5px;
+    border: solid 1px #DDDDDD;
+    width: 250px;
+    height: 80px;
+    margin: .8%;
+}
+
+.moodPerson {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    font-size: 1.5rem;
+    width: 50px;
+    height: 50px;
+    color: white;
+    background-color: black;
+}
