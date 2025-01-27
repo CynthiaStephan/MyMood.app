@@ -1,12 +1,7 @@
 const UserModel = require('../models/userModel');
-const MoodScoreModel = require('../models/moodScoreModel');
 const bcrypt = require('bcrypt');
 
 class UserController {
-    constructor(UserModel){
-        this.UserModel = UserModel;
-        this.saltRounds = 10;
-    }
 
     async getUsers(req, res){
         try {
@@ -38,18 +33,26 @@ class UserController {
 
     async createUser(req, res){
         const { id } = req.params;
-        const { first_name, last_name, email, password, role,  } = req.body;
+        const { first_name, last_name, email, password, role  } = req.body;
 
         try {
-            const updatedUser = await UserModel.update(
-                { first_name, last_name, email, password },
-                { where: {id: id} }
-            );
+            const saltRounds = 10;
 
-            if(updatedUser === 0){
-                return res.status(404).json({ error : 'User not found'});
+            let hashedPassword = "";
+            if (password) {
+                hashedPassword = await bcrypt.hash(password, saltRounds);
             }
-            res.status(200).json(updatedUser)
+
+            const newUser = await UserModel.create(
+                { 
+                    first_name: first_name,
+                    last_name: last_name,
+                    email: email,
+                    password: hashedPassword,
+                    role: role,
+                 },
+            );
+            res.status(201).json(newUser)
 
         } catch (error) {
             res.status(400).json({ error : error.message });
@@ -74,7 +77,7 @@ class UserController {
             if (password) updatedData.password = hashedPassword;
 
 
-            const updatedUser = await UserModel.update(updatedData,{ where: {id: id} });
+            const updatedUser = await UserModel.update(updatedData,{ where: {id_user: id} });
 
             if(updatedUser === 0){
                 return res.status(404).json({ error : 'User not found'});
@@ -86,7 +89,23 @@ class UserController {
         }
     }
 
+    async deleteUserById(req, res){
+        const { id } = req.params;
+
+        try {
+
+            const deletedUser = await UserModel.destroy({ where: {id_user: id} });
+
+            if(deletedUser === 0){
+                return res.status(404).json({ error : 'User not found'});
+            }
+            res.status(200).json(deletedUser)
+
+        } catch (error) {
+            res.status(400).json({ error : error.message });
+        }
+    }
 }
 
-module.exports = new UserController(UserModel);
+module.exports = new UserController();
 

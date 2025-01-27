@@ -15,12 +15,7 @@ const MoodScore = sequelize.define('mood_score', {
             min: 0,
             max: 100,
         },
-    },
-    created_at: {
-        type: DataTypes.DATE,
-        allowNull: false,
-        defaultValue: DataTypes.NOW,
-    },
+    }
 });
 
 // Associations
