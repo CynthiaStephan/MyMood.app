@@ -18,11 +18,11 @@ const MoodScore = sequelize.define('MoodScore', {
   },
   user_id: {
     type: DataTypes.INTEGER,
-    allowNull: false
+    allowNull: false,
   }
 }, {
   tableName: 'mood_score',
-  timestamps: false
+  timestamps: false,
 });
 
 MoodScore.belongsTo(User, { foreignKey: 'user_id' });
