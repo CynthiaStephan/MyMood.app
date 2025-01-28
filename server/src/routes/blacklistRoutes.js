@@ -1,15 +1,16 @@
-const { Router } = require('express');
-const blacklistController = require('../controllers/blacklistController');
+
+const { Router } = require('express'); // Assurez-vous que Router est bien importé
+const { addToBlacklist, removeFromBlacklist, getBlacklist } = require('../controllers/blacklistController');
 
 const router = Router();
 
 // Ajouter un étudiant à la blacklist
-router.post('/blacklist', blacklistController.addToBlacklist);
+router.post('/add', addToBlacklist);
 
 // Supprimer un étudiant de la blacklist
-router.delete('/blacklist', blacklistController.removeFromBlacklist);
+router.delete('/remove', removeFromBlacklist);
 
-// Récupérer la blacklist d'un admin
-router.get('/blacklist/:adminId', blacklistController.getBlacklist);
+// Récupérer la liste des étudiants blacklistés
+router.get('/', getBlacklist);
 
-module.exports = router
+module.exports = router; // Export de l'instance du routeur
