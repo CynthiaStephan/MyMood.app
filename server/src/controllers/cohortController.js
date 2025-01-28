@@ -80,13 +80,13 @@ class CohortController {
         }
     }
 
-    async assignUserToCohort(req, res) {
+    async assignUserToCohort(req, res){
         const { user_id, cohort_id } = req.body;
       
         try {
 
           const user = await UserModel.findByPk(user_id);
-          const cohort = await CohortModel.findByPk(cohort_id);
+          const cohort = await CohortModel.findByPk(cohort_id);       
       
           if (!user) {
             return res.status(404).json({ error: 'User not found' });
@@ -96,15 +96,35 @@ class CohortController {
           }
 
           await CohortUserModel.create({
-            id_user: user_id,
-            id_cohort: cohort_id,
+            user_id: user_id,
+            cohort_id: cohort_id,
           });
       
-          res.status(201).json({ message: `User ${user_id} assigned to Cohort ${cohort_id}` });
+          res.status(201).json({ message: `User ${user.dataValues.first_name} assigned to ${cohort.dataValues.name}` });
         } catch (error) {
           res.status(400).json({ error: error.message });
+    }
+    }
+
+    async deleteUserFromCohort(req, res){
+        const { user_id, cohort_id } = req.body;
+
+        try {
+            const removedUser = await CohortUserModel.destroy({
+                where: {
+                    user_id: user_id,
+                    cohort_id: cohort_id,
+                }
+            })
+            if(removedUser === 0){
+                return res.status(404).json({ error : 'User or Cohort not found'});
+            }
+            res.status(200).json(removedUser)
+            
+        } catch (error) {
+            res.status(400).json({ error: error.message });
         }
-      }
+    }
 
 }
 

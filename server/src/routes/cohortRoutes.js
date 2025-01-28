@@ -8,6 +8,7 @@ router.get('/:id', cohortController.getCohortById);
 router.post('/new', cohortController.createCohort);
 router.put('/update/:id', cohortController.updateCohort);
 router.delete('/delete/:id', cohortController.deleteCohort);
-router.post('/asign-users', cohortController.assignUserToCohort);
+router.post('/asign-user', cohortController.assignUserToCohort);
+router.delete('/unasign-user', cohortController.deleteUserFromCohort);
 
 module.exports = router

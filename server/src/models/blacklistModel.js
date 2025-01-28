@@ -28,4 +28,3 @@ User.belongsToMany(User, {
 });
 
 module.exports = Blacklist;
-
