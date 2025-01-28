@@ -11,11 +11,14 @@ const CohortUser = sequelize.define('CohortUser', {
 
 User.belongsToMany(Cohort, { 
   through: CohortUser,
-  uniqueKey: "user_id"
+  foreignKey: 'user_id',     // Spécifie le nom de la colonne pour user_id
+  otherKey: 'cohort_id'      // Spécifie le nom de la colonne pour cohort_id
 });
+
 Cohort.belongsToMany(User, { 
   through: CohortUser,
-  uniqueKey: "cohort_id"
+  foreignKey: 'cohort_id',   // Spécifie le nom de la colonne pour cohort_id
+  otherKey: 'user_id'        // Spécifie le nom de la colonne pour user_id
 });
 
 module.exports = CohortUser;
