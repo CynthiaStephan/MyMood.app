@@ -5,7 +5,25 @@ class UserController {
 
     async getUsers(req, res){
         try {
-            const users = await UserModel.findAll();
+            const users = await UserModel.findAll({
+                attributes: { exclude: ['password', 'has_alert'] },
+            });
+            if(!users || users.length === 0){
+                return res.status(404).json({ error : 'Users not found'});
+            }
+            res.status(200).json(users)
+            
+        } catch (error) {
+            res.status(400).json({ error : error.message });
+        }
+    }
+
+    async getUsersWhenRoleTrainee(req, res){
+        try {
+            const users = await UserModel.findAll({
+                attributes: { exclude: ['password'] },
+                where: { role: 'trainee' },
+            });
             if(!users || users.length === 0){
                 return res.status(404).json({ error : 'Users not found'});
             }
@@ -20,11 +38,14 @@ class UserController {
         const { id } = req.params;
 
         try {
-            const user = await UserModel.findByPk(id)
+            const user = await UserModel.findByPk(id, {
+                attributes: { exclude: ['password'] },
+            })
             if(!user || user.length === 0){
                 return res.status(404).json({ error : 'User not found'});
             }
-             res.status(200).json(user)
+            
+            res.status(200).json(user)
             
         } catch (error) {
             res.status(400).json({ error : error.message });
@@ -51,7 +72,15 @@ class UserController {
                     role: role,
                  },
             );
-            res.status(201).json(newUser)
+            let newuserData = {
+                user_id: newUser.dataValues.user_id,
+                first_name: newUser.dataValues.first_name,
+                last_name: newUser.dataValues.last_name,
+                email: newUser.dataValues.email,
+                role: newUser.dataValues.role
+
+            }
+            res.status(201).json(newuserData)
 
         } catch (error) {
             res.status(400).json({ error : error.message });
