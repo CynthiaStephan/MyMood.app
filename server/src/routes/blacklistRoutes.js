@@ -1,10 +1,6 @@
-<<<<<<< Updated upstream
-const { Router } = require('express');
-const blacklist = require('../controllers/blacklistController');
-=======
+
 const { Router } = require('express'); // Assurez-vous que Router est bien importé
 const { addToBlacklist, removeFromBlacklist, getBlacklist } = require('../controllers/blacklistController');
->>>>>>> Stashed changes
 
 const router = Router();
 

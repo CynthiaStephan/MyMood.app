@@ -1,9 +1,6 @@
-<<<<<<< Updated upstream
-// controllers/blacklistController.js
-const BlacklistModel = require('../models/blacklist');
-=======
-const Blacklist = require('../models/blacklistModel');
->>>>>>> Stashed changes
+
+
+const BlacklistModel = require('../models/blacklistModel');
 
 module.exports = {
   // Ajouter un étudiant à la blacklist
@@ -18,6 +15,7 @@ module.exports = {
       }
 
       // Ajouter à la blacklist
+
       const newEntry = await Blacklist.create({ supervisor_id, trainee_id });
       res.status(201).json({ message: 'Étudiant ajouté à la blacklist.', blacklist: newEntry });
     } catch (error) {

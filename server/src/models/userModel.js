@@ -2,7 +2,7 @@ const { DataTypes } = require('sequelize');
 const sequelize = require('../database');
 
 const User = sequelize.define('user', {
-    id_user: {
+    user_id: {
         type: DataTypes.INTEGER,
         autoIncrement: true,
         primaryKey: true,
@@ -43,18 +43,6 @@ const User = sequelize.define('user', {
     // Disable automatic timestamps (createdAt and updatedAt)
     timestamps: false,
 });
-
-// Associations
-User.associate = () => {
-    // User ↔ Cohort (Many-to-Many via CohortUser)
-    User.belongsToMany(Cohort, { through: CohortUser, foreignKey: 'id_user' });
-
-    // User ↔ MoodScore (One-to-Many)
-    User.hasMany(MoodScore, { foreignKey: 'id_user' });
-
-    // User ↔ User (Blacklist Many-to-Many via Blacklist)
-    User.belongsToMany(User, { as: 'Blocked', through: Blacklist, foreignKey: 'id_user', otherKey: 'id_user' });
-};
 
 module.exports = User;
 
