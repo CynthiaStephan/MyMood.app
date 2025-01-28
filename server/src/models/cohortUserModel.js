@@ -9,7 +9,13 @@ const CohortUser = sequelize.define('CohortUser', {
   timestamps: false
 });
 
-User.belongsToMany(Cohort, { through: CohortUser });
-Cohort.belongsToMany(User, { through: CohortUser });
+User.belongsToMany(Cohort, { 
+  through: CohortUser,
+  uniqueKey: "user_id"
+});
+Cohort.belongsToMany(User, { 
+  through: CohortUser,
+  uniqueKey: "cohort_id"
+});
 
 module.exports = CohortUser;

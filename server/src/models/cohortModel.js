@@ -8,7 +8,8 @@ const Cohort = sequelize.define('Cohort', {
     primaryKey: true
   },
   name: {
-    type: DataTypes.STRING(100)
+    type: DataTypes.STRING(100),
+    allowNull: false
   }
 }, {
   tableName: 'cohort',
