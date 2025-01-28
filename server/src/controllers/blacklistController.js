@@ -1,5 +1,3 @@
-
-
 const BlacklistModel = require('../models/blacklistModel');
 
 module.exports = {
@@ -9,14 +7,14 @@ module.exports = {
       const { supervisor_id, trainee_id } = req.body;
       
       // Vérifier si l'entrée existe déjà
-      const exists = await Blacklist.findOne({ where: { supervisor_id, trainee_id } });
+      const exists = await BlacklistModel.findOne({ where: { supervisor_id, trainee_id } });
       if (exists) {
         return res.status(400).json({ message: 'Cet étudiant est déjà dans la blacklist.' });
       }
 
       // Ajouter à la blacklist
 
-      const newEntry = await Blacklist.create({ supervisor_id, trainee_id });
+      const newEntry = await BlacklistModel.create({ supervisor_id, trainee_id });
       res.status(201).json({ message: 'Étudiant ajouté à la blacklist.', blacklist: newEntry });
     } catch (error) {
       console.error(error);
@@ -29,7 +27,7 @@ module.exports = {
     try {
       const { supervisor_id, trainee_id } = req.body;
 
-      const deleted = await Blacklist.destroy({ where: { supervisor_id, trainee_id } });
+      const deleted = await BlacklistModel.destroy({ where: { supervisor_id, trainee_id } });
       if (deleted === 0) {
         return res.status(404).json({ message: 'Aucune entrée correspondante trouvée.' });
       }
@@ -45,7 +43,7 @@ module.exports = {
   async getBlacklist(req, res) {
     try {
 
-      const entries = await Blacklist.findAll();
+      const entries = await BlacklistModel.findAll();
       res.status(200).json(entries);
     } catch (error) {
       console.error(error);
@@ -56,7 +54,7 @@ module.exports = {
   async getBlacklistBySupervisorId(req, res) {
     try {
 
-      const entries = await Blacklist.findAll();
+      const entries = await BlacklistModel.findAll();
       res.status(200).json(entries);
     } catch (error) {
       console.error(error);
