@@ -5,9 +5,9 @@ class UserController {
 
     async getUsers(req, res){
         try {
-            const users = await UserModel.findAll()
+            const users = await UserModel.findAll();
             if(!users || users.length === 0){
-                return res.status(404).json({ error : 'User not found'});
+                return res.status(404).json({ error : 'Users not found'});
             }
             res.status(200).json(users)
             
@@ -32,7 +32,6 @@ class UserController {
     }
 
     async createUser(req, res){
-        const { id } = req.params;
         const { first_name, last_name, email, password, role  } = req.body;
 
         try {
@@ -77,7 +76,7 @@ class UserController {
             if (password) updatedData.password = hashedPassword;
 
 
-            const updatedUser = await UserModel.update(updatedData,{ where: {id_user: id} });
+            const updatedUser = await UserModel.update(updatedData,{ where: {user_id: id} });
 
             if(updatedUser === 0){
                 return res.status(404).json({ error : 'User not found'});

@@ -22,7 +22,7 @@ Object.values(models).forEach((model) => {
   try {
       await sequelize.authenticate(); 
       console.log('Connexion à la base de données réussie.');
-      // Decomment import + pass to true to init the db
+      // # Pass to true to init the db
       await sequelize.sync({ force: false });
       console.log('La base de données et les modèles sont synchronisés.');
   } catch (error) {
