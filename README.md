@@ -31,9 +31,6 @@ Une application web permettant de suivre et gérer le bien-être des étudiants 
 # Cloner le projet
 git clone https://github.com/CynthiaStephan/MyMood.app.git
 
-# Installation des dépendances
-cd server && npm install
-
 # Lancement avec Docker
 docker-compose up -d --build
 ```
