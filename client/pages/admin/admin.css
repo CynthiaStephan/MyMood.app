@@ -5,20 +5,22 @@ nav {
     display: flex;
     justify-content: center;
     flex-wrap: nowrap;
-    
-    
+
+
 }
-.navbar-container{
+
+.navbar-container {
     width: 1080px;
     display: flex;
     justify-content: right;
     gap: 25px;
     padding: 15px;
 }
-input[type="button"]{
-    
+
+input[type="button"] {
+
     background-color: white;
-    border: 1px solid #1E1C59 ;
+    border: 1px solid #1E1C59;
     border-radius: 5px;
     color: #D91E41;
     padding: 12px;
@@ -28,22 +30,24 @@ input[type="button"]{
     transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-input[type="button"]:hover{
+input[type="button"]:hover {
     background-color: #dfdfe8;
     transform: scale(1.02);
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
 
 }
+
 /* Container Global*/
-#global-container{
+#global-container {
     display: flex;
     flex-wrap: wrap;
     margin-top: 30px;
     gap: 25px;
     justify-content: center;
 }
+
 /* Container Formation*/
-#global-container-formation{
+#global-container-formation {
     display: flex;
     width: 500px;
     justify-content: center;
@@ -53,41 +57,76 @@ input[type="button"]:hover{
 }
 
 /* Container User*/
-#global-container-user{
+#global-container-user {
     display: flex;
     background-color: #D91E41;
     border: #1E1C59 1px solid;
-    border-radius: 5px; 
+    border-radius: 5px;
+}
+
+/* Dropdown formation select*/
+.dropdown {
+    position: relative;
+    display: inline-block;
+  }
+
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 200px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    border-radius: 5px;
+    z-index: 1;
+  }
+
+  .dropdown:hover .dropdown-content {
+    display: block;
+  }
+
+  .dropdown-content label {
+    display: block;
+    padding: 8px;
+    cursor: pointer;
+  }
+
+#dropdown-formation-validation {
+    background-color: white;
+    border: #1E1C59 1px solid;
+    border-radius: 5px;
+    margin-left: 10%;
 }
 
 /* Bouton logout mobile*/
-#logout-responsive{
+#logout-responsive {
     display: none;
 }
 
 @media (max-width: 768px) {
+
     /* Bouton logout mobile*/
-    #logout-responsive{
+    #logout-responsive {
         display: flex;
         justify-content: center;
         background-color: white;
         margin: 100px auto;
-        border: 1px solid #1E1C59 ;
+        border: 1px solid #1E1C59;
         color: #D91E41;
         padding: 12px;
         cursor: pointer;
         border-radius: 5px;
         transition: transform 0.2s ease, box-shadow 0.2s ease;
     }
-    
-    #logout-responsive:hover{
+
+    #logout-responsive:hover {
         background-color: #dfdfe8;
         transform: scale(1.02);
         box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
-    
+
     }
+
     /* Bouton logout desktop*/
-    #logout{
+    #logout {
         display: none;
     }
 }
