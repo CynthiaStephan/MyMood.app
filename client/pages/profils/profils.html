@@ -1,50 +1,56 @@
 <!DOCTYPE html>
 <html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="MYMOOD suivi de votre humeur">
-    <link rel="stylesheet" href="./client/assets/css/normalize.css">
-    <link rel="stylesheet" href="./client/assets/css/global.css">
-    <script src="./profils.js" defer></script>
-    <link rel="stylesheet" href="./profils.css">
-    <title>MYMOOD</title>
-</head>
-<body>
-    <!-- Navbar vide / barre Bleu-->
-    <header>
-        <nav>
-            <div>
 
-            </div>
-        </nav>
-    </header>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="MYMOOD suivi de votre humeur">
+  <link rel="stylesheet" href="./client/assets/css/normalize.css">
+  <link rel="stylesheet" href="./client/assets/css/global.css">
+  <script src="./profils.js" defer></script>
+  <link rel="stylesheet" href="./profils.css">
+  <title>MYMOOD</title>
+</head>
+
+<body>
+  <!-- Navbar vide / barre Bleu-->
+  <header>
+    <nav>
+      <div>
+
+      </div>
+    </nav>
+  </header>
+  <main>
     <!-- Formulaire du Profils-->
     <div class="profil-container">
-        <form action="profil-form." method="post">
-            <fieldset>
-                <div class="champ">
-                    <input type="text" id="name" name="name" minlength="2" maxlength="25" required
-                    placeholder="Nom">
-                  </div>
-                  <div class="champ">
-                    <input type="text" id="mail" name="mail" minlength="2" maxlength="25" required
-                    placeholder="Adresse mail">
-                  </div>
-                  <div class="champ">
-                    <input type="text" id="new-password" name="new-password" minlength="2" maxlength="25" required
-                    placeholder="Nouveau mot de passe">
-                  </div>
-                  <div class="champ">
-                    <input type="text" id="new-password-confirm" name="new-password-confirm" minlength="2" maxlength="25" required
-                    placeholder="Confirmer nouveau mot de passe">
-                  </div>
-            </fieldset>
-          <!-- Bouton Valider / Annuler-->
-
-            <input type="reset" value="Annuler" id="cancel">
-            <input type="submit" value="Valider" name="validation" id="validation">
-        </form>
+      <form action="profil-form." method="post">
+        <fieldset>
+          <div class="champ">
+            <input type="text" id="name" name="name" minlength="2" maxlength="25" required placeholder="Nom">
+          </div>
+          <div class="champ">
+            <input type="text" id="firstname" name="firstname" minlength="2" maxlength="25" required
+              placeholder="Prénom">
+          </div>
+          <div class="champ">
+            <input type="text" id="mail" name="mail" minlength="2" maxlength="25" required placeholder="Adresse mail">
+          </div>
+          <div class="champ">
+            <input type="text" id="new-password" name="new-password" minlength="2" maxlength="25" required
+              placeholder="Nouveau mot de passe">
+          </div>
+          <div class="champ">
+            <input type="text" id="new-password-confirm" name="new-password-confirm" minlength="2" maxlength="25"
+              required placeholder="Confirmer nouveau mot de passe">
+          </div>
+        </fieldset>
+        <!-- Bouton Valider / Annuler-->
+        <input type="reset" value="Annuler" id="cancel" name="cancel">
+        <input type="submit" value="Valider" name="validation" id="validation">
+      </form>
     </div>
+  </main>
 </body>
+
 </html>
