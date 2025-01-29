@@ -8,45 +8,94 @@ let stagiaires = [
     {
         id : '2',
         nom : 'stagiaire 2',
-        mood : 50,
-        call : false
+        mood : 100,
+        call : true
     },
     {
         id : '3',
         nom : 'stagiaire 3',
-        mood : 20,
-        call : true
+        mood : 10,
+        call : false
     },
     {
         id : '4',
         nom : 'stagiaire 4',
-        mood : 80,
+        mood : 60,
         call : false
     },
     {
         id : '5',
         nom : 'stagiaire 5',
-        mood : 60,
+        mood : 10,
         call : false
     },
     {
         id : '6',
         nom : 'stagiaire 6',
         mood : 90,
-        call : false
+        call : true
     },
     {
         id : '7',
         nom : 'stagiaire 7',
-        mood : 100,
-        call : true
+        mood : 40,
+        call : false
     },
     {
         id : '8',
         nom : 'stagiaire 8',
         mood : 15,
         call : false
+    },
+    {
+        id : '9',
+        nom : 'stagiaire 9',
+        mood : 35,
+        call : false
+    },
+    {
+        id : '10',
+        nom : 'stagiaire 10',
+        mood : 50,
+        call : false
+    },
+    {
+        id : '11',
+        nom : 'stagiaire 11',
+        mood : 1,
+        call : false
+    },
+    {
+        id : '12',
+        nom : 'stagiaire 12',
+        mood : 1,
+        call : false
+    },
+    {
+        id : '13',
+        nom : 'stagiaire 13',
+        mood : 1,
+        call : false
+    },
+    {
+        id : '14',
+        nom : 'stagiaire 14',
+        mood : 1,
+        call : false
+    },
+    {
+        id : '15',
+        nom : 'stagiaire 15',
+        mood : 35,
+        call : false
+    },
+    {
+        id : '16',
+        nom : 'stagiaire 16',
+        mood : 85,
+        call : true
     }
+
 ]
 
 let studentStatus = document.querySelector('#studentStatus');
@@ -78,12 +127,13 @@ const moodColor = (mColor) => {
      return color;
 }
 
-
+let averageMood = 0
 
 for (let people of stagiaires) {
     console.log(people.id);
     let infoPerson = document.createElement('div');
     infoPerson.classList.add('infoPerson');
+    infoPerson.setAttribute('id', `${people.id}`)
     let namePerson = document.createElement('div');
     namePerson.classList.add('namePerson');
     let moodPerson = document.createElement('div');
@@ -102,11 +152,41 @@ for (let people of stagiaires) {
 
     moodPerson.style.backgroundColor = moodColor(people.mood);
 
+    if (people.call == true) {
+            document.getElementById(`${people.id}`).style.backgroundColor = '#FF6B6E';
+        } else {
+            document.getElementById(`${people.id}`).style.backgroundColor = '#EFF2FF';
+    }
+
+    averageMood+=people.mood;
+
+    document.getElementById(`${people.id}`).addEventListener('click', () => moodPopUp(people.nom, people.mood, people.call))
+
 }
 
-// for (let )
-// if (people.call = true) {
-//         document.querySelector('.infoPerson').style.backgroundColor = '#FF6B6E';
-//     } else {
-//         document.querySelector('.infoPerson').style.backgroundColor = '#EFF2FF';
-//     }
+document.querySelector('.slider').value = (Math.floor(averageMood/stagiaires.length))
+document.querySelector('.sliderValue').textContent = (Math.floor(averageMood/stagiaires.length))
+
+const moodPopUp = (personName, personMood, personCall) => {
+    console.log(personName, personMood, personCall);
+    modal.classList.add("open");
+
+    document.querySelector('.nom-stagiaire').textContent = personName;
+
+    document.getElementById('cancel').addEventListener('click', () => {
+        modal.classList.remove("open");
+    })
+
+    document.getElementById('resetMood').addEventListener('click', () => {
+        
+        modal.classList.remove("open");
+    })
+
+    document.getElementById('resetCall').addEventListener('click', () => {
+
+        modal.classList.remove("open");
+    })
+
+}
+
+
