@@ -10,11 +10,11 @@ const MoodScore = sequelize.define('MoodScore', {
   },
   score: {
     type: DataTypes.INTEGER,
-    allowNull: false
-  },
-  created_at: {
-    type: DataTypes.DATE,
-    allowNull: false
+    allowNull: false,
+    validate: {
+      min: 0,
+      max: 100,
+    }
   },
   user_id: {
     type: DataTypes.INTEGER,
@@ -22,7 +22,9 @@ const MoodScore = sequelize.define('MoodScore', {
   }
 }, {
   tableName: 'mood_score',
-  timestamps: false,
+  timestamps: true,
+  createdAt: 'created_at',
+  updatedAt: false,
 });
 
 MoodScore.belongsTo(User, { foreignKey: 'user_id' });

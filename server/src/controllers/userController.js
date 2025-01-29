@@ -63,14 +63,13 @@ class UserController {
                 hashedPassword = await bcrypt.hash(password, saltRounds);
             }
 
-            const newUser = await UserModel.create(
-                { 
+            const newUser = await UserModel.create({ 
                     first_name: first_name,
                     last_name: last_name,
                     email: email,
                     password: hashedPassword,
                     role: role,
-                 },
+                },
             );
             let newuserData = {
                 user_id: newUser.dataValues.user_id,
