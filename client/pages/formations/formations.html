@@ -23,14 +23,23 @@
         <div class="average-mood">
             <p class="average">Moyenne de la classe</p>
             <div class="slidecontainer">
-                <input type="range" min="1" max="100" value="1" class="slider" id="myRange">
+                <input type="range" min="1" max="100" value="1" class="slider" id="myRange" disabled>
             </div>
-            <h4>50</h4>
+            <h4 class="sliderValue"></h4>
         </div>
 
     </section>
         
     <section id="studentStatus">
+
+        <div class="modal" id="modal">
+            <div class="modal-inner">
+                <h4 class="nom-stagiaire"></h4>
+                <button class="popUpBtn" id="resetMood">Reinitialiser le mood</button>
+                <button class="popUpBtn" id="resetCall">Reinitialiser l'appel</button>
+                <button class="popUpBtn" id="cancel">Annuler</button>
+            </div>
+        </div>
 
     </section>
 </body>
