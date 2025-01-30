@@ -117,7 +117,48 @@ http://localhost:3650/
 
 ---
 
-### 2. Gestion des cohortes
+### 2. Gestion des utilisateurs
+
+#### Afficher dernier score
+- **URL** : `/mood/:user_id`
+- **Méthode** : GET
+- **Description** : Affiche le dernier score d'un stagiaire
+- **Réponse** : 
+  ```json
+  {
+      "score_id": 5,
+      "score": 22,
+      "user_id": 1
+  }
+  ```
+  #### Ajouter un nouveau score
+- **URL** : `/user/new`
+- **Méthode** : POST
+- **Description** : Ajouter un nouveau score, si la date du dernier score = date actuel, on modifie le score enregistré, sinon crée un nouveau.
+- **Corps de la requête** :
+  ```json
+  {
+      "score": 22
+  }
+  ```
+- **Réponse** : 
+  ```json
+  {
+      "score_id": 7,
+      "user_id": "1",
+      "score": 22,
+      "created_at": "2025-01-30T15:07:53.984Z"
+  }
+  ```
+  Ou 
+  ```json
+  [
+    1
+  ]
+  ```
+
+
+### 3. Gestion des cohortes
 
 #### Obtenir toutes les cohortes
 - **URL** : `/cohort/`
@@ -198,9 +239,34 @@ http://localhost:3650/
 
 ---
 
-### 3. Gestion des blacklistes
+### 4. Gestion des blacklistes
 
-#### Ajouter un étudiant à la blacklist
+#### Afficher la blacklist
+- **URL** : `/blacklist/`
+- **Méthode** : GET
+- **Description** : Récupère la liste complète des entrées de la blacklist.
+
+#### Afficher les stagiaires blacklistés
+- **URL** : `/blacklist/users/:supervisor_id`
+- **Méthode** : GET
+- **Description** : Affiche les informations des stagiaires.
+- **Réponse** : 
+  ```json
+  [
+    {
+        "user_id": 2,
+        "first_name": "Benita ",
+        "last_name": "AndrKellerde"
+    },
+    {
+        "user_id": 5,
+        "first_name": "Douglas",
+        "last_name": "Warren"
+    },
+  ]
+  ```
+
+#### Ajouter un stagiaire à la blacklist
 - **URL** : `/blacklist/add`
 - **Méthode** : POST
 - **Description** : Ajoute un étudiant à la blacklist.
@@ -212,34 +278,50 @@ http://localhost:3650/
   }
   ```
 
-#### Supprimer un étudiant de la blacklist
-- **URL** : `/blacklist/remove`
-- **Méthode** : DELETE
-- **Description** : Supprime un étudiant de la blacklist.
+#### Ajouter plusieurs stagiaires à la blacklist
+- **URL** : `/blacklist/add-many`
+- **Méthode** : POST
+- **Description** : Ajoute plusieurs stagiaires à la blacklist.
 - **Corps de la requête** :
   ```json
   {
       "supervisor_id": 1,
-      "trainee_id": 2
+      "trainee_id": [2, 3]
+  }
+  ```
+- **Réponse** : 
+  ```json
+  {
+    "blacklist": [
+        {
+            "blacklist_id": 5,
+            "supervisor_id": 6,
+            "trainee_id": 4
+        }
+    ]
   }
   ```
 
-#### Récupérer la blacklist
-- **URL** : `/blacklist/`
-- **Méthode** : GET
-- **Description** : Récupère la liste complète des entrées de la blacklist.
-
-
-
+#### Supprimer un stagiaire de la blacklist
+- **URL** : `/blacklist/remove`
+- **Méthode** : DELETE
+- **Description** : Supprime un ou plusieurs stagiaires de la blacklist.
+- **Corps de la requête** :
+  ```json
+  {
+      "supervisor_id": 1,
+      "trainee_id": 2 ou [2, 3]
+  }
+  ```
 
 ## Codes d'erreur
 
-| Code | Description                                   |
-|------|-----------------------------------------------|
+| Code | Description |
+|---:|---|
 | 200  | Succès                                        |
+| 201  | Crée                                          |
 | 400  | Requête invalide                              |
 | 401  | Non authentifié                               |
 | 403  | Non autorisé                                  |
 | 404  | Ressource non trouvée                         |
 | 500  | Erreur serveur                                |
-
