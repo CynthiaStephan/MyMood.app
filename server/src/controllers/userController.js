@@ -1,3 +1,4 @@
+const User = require('../models/userModel');
 const UserModel = require('../models/userModel');
 const bcrypt = require('bcrypt');
 
@@ -14,7 +15,7 @@ class UserController {
             res.status(200).json(users)
             
         } catch (error) {
-            res.status(400).json({ error : error.message });
+            res.status(500).json({ error : error.message });
         }
     }
 
@@ -30,7 +31,7 @@ class UserController {
             res.status(200).json(users)
             
         } catch (error) {
-            res.status(400).json({ error : error.message });
+            res.status(500).json({ error : error.message });
         }
     }
 
@@ -48,7 +49,7 @@ class UserController {
             res.status(200).json(user)
             
         } catch (error) {
-            res.status(400).json({ error : error.message });
+            res.status(500).json({ error : error.message });
         }
     }
 
@@ -82,7 +83,7 @@ class UserController {
             res.status(201).json(newuserData)
 
         } catch (error) {
-            res.status(400).json({ error : error.message });
+            res.status(500).json({ error : error.message });
         }
     }
 
@@ -112,7 +113,7 @@ class UserController {
             res.status(200).json(updatedUser)
 
         } catch (error) {
-            res.status(400).json({ error : error.message });
+            res.status(500).json({ error : error.message });
         }
     }
 
@@ -129,9 +130,65 @@ class UserController {
             res.status(200).json(deletedUser)
 
         } catch (error) {
-            res.status(400).json({ error : error.message });
+            res.status(500).json({ error : error.message });
         }
     }
+    // TODO : Ajouter le service d'envoie de mails
+    async activateUserAlert(req, res){
+        const { id } = req.params;
+
+        try{
+            const user = await UserModel.findOne({ where: {user_id: id} });
+            if(user.dataValues.has_alert === false){
+                const newAlert = await UserModel.update(
+                    { has_alert: 1 },
+                    {
+                        where: {
+                            user_id: id
+                        },
+                    },
+                )
+
+                if( newAlert === 0){
+                    return res.status(404).json({ message: 'User not found' })
+                }
+                res.status(200).json(newAlert);
+            } else {
+                res.status(400).json({ message: 'The user as already an alert' })
+            }
+
+        } catch(error){
+            res.status(500).json({ error : error.message });
+        }
+    }
+
+    async deactivateUserAlert(req, res){
+        const { id } = req.params;
+
+        try{
+            const user = await UserModel.findOne({ where: {user_id: id} });
+            if(user.dataValues.has_alert === true){
+                const newAlert = await UserModel.update(
+                    { has_alert: 0 },
+                    {
+                        where: {
+                            user_id: id
+                        },
+                    },
+                )
+                if( newAlert === 0){
+                    return res.status(404).json({ message: 'User not found' })
+                }
+                res.status(200).json(newAlert);
+            } else {
+                res.status(400).json({ message: 'The user as not alert' })
+            }
+
+        } catch(error){
+            res.status(500).json({ error : error.message });
+        }
+    }
+    
 }
 
 module.exports = new UserController();
