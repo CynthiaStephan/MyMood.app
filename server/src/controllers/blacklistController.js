@@ -23,6 +23,38 @@ module.exports = {
         }
     },
 
+    async addMultipleUsersToBlacklist(req, res) {
+
+        const { supervisor_id, trainee_ids } = req.body;
+
+        try {
+            // trainee_id is an array
+            const existingEntries = await BlacklistModel.findAll({
+                where: {
+                    supervisor_id: supervisor_id,
+                    trainee_id: trainee_ids,
+                }
+            });
+
+            const existingIds = existingEntries.map(entry => entry.trainee_id);
+            const newTrainees = trainee_ids.filter(id => !existingIds.includes(id));
+    
+            if (newTrainees.length === 0) {
+                return res.status(400).json({ message: 'Selected trainees are already blacklisted' });
+            }
+            // map for to insert an array of ids
+            const newEntries = await BlacklistModel.bulkCreate(
+                newTrainees.map(trainee_id => ({ supervisor_id, trainee_id }))
+            );
+    
+            res.status(201).json({
+                blacklist: newEntries
+            });
+        } catch (error) {
+            res.status(500).json({ error.message });
+        }
+    },
+
     // Supprimer un étudiant de la blacklist
     async removeFromBlacklist(req, res) {
         try {
@@ -89,6 +121,5 @@ module.exports = {
             res.status(500).json({ error: error.message });
         }
     }
-
 
 };

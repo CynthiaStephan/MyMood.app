@@ -1,11 +1,13 @@
 
 const { Router } = require('express'); // Assurez-vous que Router est bien importé
-const { addToBlacklist, removeFromBlacklist, getBlacklist, getBlacklistedUsersBySupervisorId } = require('../controllers/blacklistController');
+const { addToBlacklist, removeFromBlacklist, getBlacklist, getBlacklistedUsersBySupervisorId, addMultipleUsersToBlacklist } = require('../controllers/blacklistController');
 
 const router = Router();
 
 // Ajouter un étudiant à la blacklist
 router.post('/add', addToBlacklist);
+
+router.post('/add-many', addMultipleUsersToBlacklist);
 
 // Supprimer un étudiant de la blacklist
 router.delete('/remove', removeFromBlacklist);
