@@ -46,12 +46,12 @@ module.exports = {
             const newEntries = await BlacklistModel.bulkCreate(
                 newTrainees.map(trainee_id => ({ supervisor_id, trainee_id }))
             );
-    
+            
             res.status(201).json({
                 blacklist: newEntries
             });
         } catch (error) {
-            res.status(500).json({ error.message });
+            res.status(500).json({ error: error.message });
         }
     },
 
