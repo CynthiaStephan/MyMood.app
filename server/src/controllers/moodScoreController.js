@@ -18,7 +18,7 @@ class MoodScoreController {
             }
             res.status(200).json(currentMood);
         } catch (error) {
-            res.status(400).json({ error : error.message });
+            res.status(500).json({ error : error.message });
         }
     }
 
@@ -56,7 +56,7 @@ class MoodScoreController {
                 res.status(400).json({ error : "Error when trying to add mood score"});
             }
         } catch (error) {
-            res.status(400).json({ error : error.message });
+            res.status(500).json({ error : error.message });
         }
 
     }

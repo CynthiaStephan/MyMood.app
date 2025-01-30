@@ -12,7 +12,7 @@ class CohortController {
             }
             res.status(200).json(cohorts);
         } catch (error) {
-            res.status(400).json({ error : error.message });
+            res.status(500).json({ error : error.message });
         }
     }
 
@@ -27,7 +27,7 @@ class CohortController {
              res.status(200).json(cohort)
             
         } catch (error) {
-            res.status(400).json({ error : error.message });
+            res.status(500).json({ error : error.message });
         }
     }
     
@@ -43,7 +43,7 @@ class CohortController {
             );
             res.status(201).json(newCohort);
         } catch (error) {
-            res.status(400).json({ error : error.message });
+            res.status(500).json({ error : error.message });
         }
     }
 
@@ -60,7 +60,7 @@ class CohortController {
             }
             res.status(200).json(updatedCohort);
         } catch (error) {
-            res.status(400).json({ error : error.message });
+            res.status(500).json({ error : error.message });
         }
     }
 
@@ -76,7 +76,7 @@ class CohortController {
             res.status(200).json(deletedCohort)
 
         } catch (error) {
-            res.status(400).json({ error : error.message });
+            res.status(500).json({ error : error.message });
         }
     }
 
@@ -102,7 +102,7 @@ class CohortController {
       
           res.status(201).json({ message: `User ${user.dataValues.first_name} assigned to ${cohort.dataValues.name}` });
         } catch (error) {
-          res.status(400).json({ error: error.message });
+          res.status(500).json({ error: error.message });
     }
     }
 
@@ -122,7 +122,7 @@ class CohortController {
             res.status(200).json(removedUser)
             
         } catch (error) {
-            res.status(400).json({ error: error.message });
+            res.status(500).json({ error: error.message });
         }
     }
 

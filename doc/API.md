@@ -114,10 +114,30 @@ http://localhost:3650/
 - **URL** : `/user/delete/:user_id`
 - **Méthode** : DELETE
 - **Description** : Supprime un utilisateur par son ID.
+- 
+#### Ajouter une alerte
+- **URL** : `/activate-alert/:user_id`
+- **Méthode** : PUT
+- **Description** : Passe le status de l'alerte à 1 (true).
+-  **Réponse** : 
+  ```json
+  [
+    1
+  ]
+
+#### Ajouter une alerte
+- **URL** : `/deactivate-alert/:user_id`
+- **Méthode** : PUT
+- **Description** : Passe le status de l'alerte à 0 (false).
+-  **Réponse** : 
+  ```json
+  [
+    1
+  ]
 
 ---
 
-### 2. Gestion des utilisateurs
+### 2. Gestion Mood Score
 
 #### Afficher dernier score
 - **URL** : `/mood/:user_id`
