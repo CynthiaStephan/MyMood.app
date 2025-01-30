@@ -1,5 +1,5 @@
-const User = require('../models/userModel');
 const UserModel = require('../models/userModel');
+const CohortModel = require('../models/cohortModel');
 const bcrypt = require('bcrypt');
 
 class UserController {
@@ -48,6 +48,25 @@ class UserController {
             
             res.status(200).json(user)
             
+        } catch (error) {
+            res.status(500).json({ error : error.message });
+        }
+    }
+
+    async getAllUsersInfoAndCohorts(req,res){
+        try {
+            const users = await UserModel.findAll({
+                attributes: { exclude: ['password', 'has_alert'] },
+                include: [{
+                    model: CohortModel,
+                    attributes: ['cohort_id', 'name'],
+                    through: { attributes: [] }
+                }]
+            });
+    
+            console.log("Résultat Sequelize :", JSON.stringify(users, null, 2));
+
+            res.status(200).json(users);
         } catch (error) {
             res.status(500).json({ error : error.message });
         }
