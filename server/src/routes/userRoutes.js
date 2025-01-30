@@ -5,7 +5,7 @@ const router = Router();
 
 router.get('/', userController.getUsers);
 router.get('/trainee-users', userController.getUsersWhenRoleTrainee);
-router.get('/admin/info', userController.getAllUsersInfoAndCohorts);
+router.get('/admin/user-info', userController.getAllUsersInfoAndCohorts);
 router.get('/:id', userController.getUserById);
 router.post('/new', userController.createUser);
 router.put('/update/:id', userController.updateUserInfo);
