@@ -94,6 +94,48 @@ http://localhost:3650/
   }
   ```
 
+#### Admin : Afficher users
+- **URL** : `/user/admin/user-info`
+- **Méthode** : GET
+- **Description** : Afficher infos utilisateur + les cohortes associées
+- **Réponse** : 
+  ```json
+  [
+        {
+        "user_id": 1,
+        "first_name": "Erwin",
+        "last_name": "Gamble",
+        "email": "erwin@email.com",
+        "role": "trainee",
+        "Cohorts": [
+            {
+                "cohort_id": 2,
+                "name": "Code Lyoko"
+            }
+        ]
+    },
+    {
+        "user_id": 2,
+        "first_name": "Royal",
+        "last_name": "Norman",
+        "email": "royal@email.com",
+        "role": "trainee",
+        "Cohorts": [
+            {
+                "cohort_id": 1,
+                "name": "Kim Possible"
+            },
+            {
+                "cohort_id": 2,
+                "name": "Code Lyoko"
+            }
+        ]
+    }
+  ]
+  ```
+
+
+
 #### Mettre à jour un utilisateur
 - **URL** : `/user/update/:user_id`
 - **Méthode** : PUT
