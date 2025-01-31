@@ -1,4 +1,5 @@
 const BlacklistModel = require('../models/blacklistModel');
+const UserModel = require('../models/userModel'); // Modèle des utilisateurs
 
 module.exports = {
   // Ajouter un étudiant à la blacklist
@@ -61,4 +62,27 @@ module.exports = {
       res.status(500).json({ message: 'Erreur lors de la récupération de la blacklist.' });
     }
   },
+
+  // Récupérer les infos des user associés à un superviseur
+  async getUsersBySupervisorId(req, res) {
+    try {
+      const { supervisor_id } = req.params;
+
+      const blacklistedUsers = await BlacklistModel.findAll({
+        where: { supervisor_id },
+        include: [
+          {
+            model: UserModel, // Jointure avec la table des utilisateurs
+            as: 'user', // Alias défini dans le modèle
+            attributes: ['id', 'name', 'email'] // Sélectionne les champs pertinents
+          }
+        ]
+      });
+
+      res.status(200).json(blacklistedUsers);
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: 'Erreur lors de la récupération des utilisateurs associés.' });
+    }
+  }
 };
