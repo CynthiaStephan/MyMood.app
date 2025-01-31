@@ -1,94 +1,97 @@
-// Requete pour afficher les cohorts
-const requestCohort = 'http://localhost:3650/cohort/';
-
-fetch(requestCohort)
-.then((response) => response.json()) 
-.then((data) => {
-    console.log(data)
-    let cohortListContainer = document.getElementById('liste-formation');
-    let myUl = document.createElement('ul');
-    myUl.className = 'ul-formation-style';
-    cohortListContainer.appendChild(myUl);
-    //boucle pour afficher les cohorts avec une checkbox
-    for (let cohort of data){
-        let myLi = document.createElement('li');
-        myLi.className = 'list-formation-style';
-        myUl.appendChild(myLi);
-        let checkbox = document.createElement('input');
-        checkbox.type = 'checkbox';
-        checkbox.id = 'myCheckbox-formation';
-        checkbox.className = 'checkbox-formation-style';
-        let label = document.createElement('label');
-        label.htmlFor = 'myCheckbox-formation';
-        label.textContent = `${cohort.name}`;
-        label.className = 'label-formation-style';   
-        myLi.appendChild(label);
-        myLi.appendChild(checkbox);
-     }
-})
-.catch((error) => console.log(error))
+// URL API
+const apiUrlCohort = 'http://localhost:3650/cohort';
+const apiUrlCohortNew = 'http://localhost:3650/cohort/new';
+const apiUrlCohortUpdate = 'http://localhost:3650/cohort/update';
+const apiUrlCohortDelete = 'http://localhost:3650/cohort/delete';
 
 
-// requete pour afficher les users
-const requestUsers = 'http://localhost:3650/user/';
-
-fetch(requestUsers)
-.then((response)=>response.json())
-.then((data) =>{
-    console.log(data);
-    let userListContainer = document.getElementById('container-gestion-users');
-    let myUl = document.createElement('ul');
-    myUl.className = 'ul-user-style';
-    userListContainer.appendChild(myUl);
-    //boucle pour afficher les users
-    for (let user of data) {
-        let myLi = document.createElement('li');
-        myLi.className = 'list-user-style';
-        myUl.appendChild(myLi);
-    
-        let userFirstName = document.createElement('p');
-        userFirstName.textContent = `${user.first_name}`;
-    
-        let userLastName = document.createElement('p');
-        userLastName.textContent = `${user.last_name}`;
-    
-        let userEmail = document.createElement('p');
-        userEmail.textContent = `${user.email}`;
-    
-        let userRole = document.createElement('p');
-        let select = document.createElement('select');
-        select.name = 'rôle';
-    
-        // Mappage entre les rôles internes et les valeurs affichées dans le select
-        let roles = {
-            "trainee": "Stagiaire",
-            "supervisor": "Superviseur",
-            "admin": "Administrateur"
-        };
-    
-        let options = ["--Choisir une catégorie--", "Stagiaire", "Superviseur", "Administrateur"];
-        
-        for (let optionText of options) {
-            let option = document.createElement('option');
-            option.value = optionText.toLowerCase();  
-            option.textContent = optionText;
-    
-           
-            if (user.role && option.value === roles[user.role.toLowerCase()]?.toLowerCase()) {
-                option.selected = true; 
-            }
-    
-            select.appendChild(option);
-        }
-    
-        userRole.appendChild(select);
-    
-        myLi.appendChild(userFirstName);
-        myLi.appendChild(userLastName);
-        myLi.appendChild(userEmail);
-        myLi.appendChild(userRole);
-    }
-    
-    
-    
+// Récupérer les cohortes depuis l'API
+function getCohorts() {
+  fetch(apiUrlCohort)
+    .then(response => response.json())
+    .then(data => {
+      const tableBody = document.querySelector('#cohortTable tbody');
+      tableBody.innerHTML = ''; 
+      data.forEach(cohort => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+          <td>${cohort.cohort_id}</td>
+          <td>${cohort.name}</td>
+          <td>
+            <button onclick="editCohort(${cohort.cohort_id})">Editer</button>
+            <button onclick="deleteCohort(${cohort.cohort_id})">Supprimer</button>
+          </td>
+        `;
+        tableBody.appendChild(row);
+      });
     })
+    .catch(error => console.error('Erreur lors de la récupération:', error));
+}
+
+// Créer une nouvelle cohorte
+function createCohort() {
+  const name = document.getElementById('name').value;
+  if (!name) {
+    alert('Le nom de la cohorte est requis.');
+    return;
+  }
+
+  const newCohort = { name: name };
+  
+  fetch(apiUrlCohortNew, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(newCohort),
+  })
+  .then(response => response.json())
+  .then(data => {
+    console.log('Cohorte créée:', data);
+    getCohorts(); // Rafraîchir la liste
+  })
+  .catch(error => console.error('Erreur lors de la création:', error));
+  
+  document.getElementById('name').value = ''; 
+}
+
+// Mettre à jour une cohorte
+function editCohort(cohortId) {
+  const newName = prompt('Entrez le nouveau nom de la cohorte :');
+  if (!newName) {
+    return;
+  }
+
+  const updatedCohort = { name: newName };
+  
+  fetch(`${apiUrlCohortUpdate}/${cohortId}`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(updatedCohort),
+  })
+  .then(response => response.json())
+  .then(data => {
+    console.log('Cohorte mise à jour:', data);
+    getCohorts(); // Rafraîchir la liste
+  })
+  .catch(error => console.error('Erreur lors de la mise à jour:', error));
+}
+
+// Supprimer une cohorte
+function deleteCohort(cohortId) {
+  if (confirm('Êtes-vous sûr de vouloir supprimer cette cohorte ?')) {
+    fetch(`${apiUrlCohortDelete}/${cohortId}`, {
+      method: 'DELETE',
+    })
+    .then(() => {
+      console.log(`Cohorte avec ID ${cohortId} supprimée`);
+      getCohorts(); // Rafraîchir la liste
+    })
+    .catch(error => console.error('Erreur lors de la suppression:', error));
+  }
+}
+
+// Charger les cohortes au chargement de la page
+window.onload = getCohorts;
