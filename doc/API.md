@@ -262,7 +262,7 @@ http://localhost:3650/
   ```
 
 #### Mettre à jour une cohorte
-- **URL** : `/cohort/update/:user_id`
+- **URL** : `/cohort/update/:cohort_id`
 - **Méthode** : PUT
 - **Description** : Met à jour les informations d'une cohorte.
 - **Corps de la requête** :
@@ -273,7 +273,7 @@ http://localhost:3650/
   ```
 
 #### Supprimer une cohorte
-- **URL** : `/cohort/delete/:user_id`
+- **URL** : `/cohort/delete/:cohort_id`
 - **Méthode** : DELETE
 - **Description** : Supprime une cohorte par son ID.
 
