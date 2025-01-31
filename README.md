@@ -2,6 +2,11 @@
 
 Une application web permettant de suivre et gérer le bien-être des étudiants à travers une interface intuitive. Conçue pour faciliter la communication entre étudiants et encadrants.
 
+## Documentation 
+
+* **[Gestion des Branches GitHub](./doc/Guidelines.md)**
+* **[Documentation API](./doc/API.md)**
+
 ## Fonctionnalités principales
 
 ### Pour les étudiants
@@ -31,16 +36,10 @@ Une application web permettant de suivre et gérer le bien-être des étudiants 
 # Cloner le projet
 git clone https://github.com/CynthiaStephan/MyMood.app.git
 
-# Installation des dépendances
-cd server && npm install
-
 # Lancement avec Docker
 docker-compose up -d --build
 ```
 
-## Documentation 
-
-* **[Gestion des Branches GitHub](./doc/Guidelines.md)**
 
 ## Auteur
 

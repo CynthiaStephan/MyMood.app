@@ -1,23 +1,37 @@
 const UserModel = require('../models/userModel');
-const MoodScoreModel = require('../models/moodScoreModel');
+const CohortModel = require('../models/cohortModel');
 const bcrypt = require('bcrypt');
 
 class UserController {
-    constructor(UserModel){
-        this.UserModel = UserModel;
-        this.saltRounds = 10;
-    }
 
     async getUsers(req, res){
         try {
-            const users = await UserModel.findAll()
+            const users = await UserModel.findAll({
+                attributes: { exclude: ['password', 'has_alert'] },
+            });
             if(!users || users.length === 0){
-                return res.status(404).json({ error : 'User not found'});
+                return res.status(404).json({ error : 'Users not found'});
             }
             res.status(200).json(users)
             
         } catch (error) {
-            res.status(400).json({ error : error.message });
+            res.status(500).json({ error : error.message });
+        }
+    }
+
+    async getUsersWhenRoleTrainee(req, res){
+        try {
+            const users = await UserModel.findAll({
+                attributes: { exclude: ['password'] },
+                where: { role: 'trainee' },
+            });
+            if(!users || users.length === 0){
+                return res.status(404).json({ error : 'Users not found'});
+            }
+            res.status(200).json(users)
+            
+        } catch (error) {
+            res.status(500).json({ error : error.message });
         }
     }
 
@@ -25,34 +39,70 @@ class UserController {
         const { id } = req.params;
 
         try {
-            const user = await UserModel.findByPk(id)
+            const user = await UserModel.findByPk(id, {
+                attributes: { exclude: ['password'] },
+            })
             if(!user || user.length === 0){
                 return res.status(404).json({ error : 'User not found'});
             }
-             res.status(200).json(user)
+            
+            res.status(200).json(user)
             
         } catch (error) {
-            res.status(400).json({ error : error.message });
+            res.status(500).json({ error : error.message });
+        }
+    }
+
+    async getAllUsersInfoAndCohorts(req,res){
+        try {
+            const users = await UserModel.findAll({
+                attributes: { exclude: ['password', 'has_alert'] },
+                include: [{
+                    model: CohortModel,
+                    attributes: ['cohort_id', 'name'],
+                    through: { attributes: [] }
+                }]
+            });
+    
+            console.log("Résultat Sequelize :", JSON.stringify(users, null, 2));
+
+            res.status(200).json(users);
+        } catch (error) {
+            res.status(500).json({ error : error.message });
         }
     }
 
     async createUser(req, res){
-        const { id } = req.params;
-        const { first_name, last_name, email, password, role,  } = req.body;
+        const { first_name, last_name, email, password, role  } = req.body;
 
         try {
-            const updatedUser = await UserModel.update(
-                { first_name, last_name, email, password },
-                { where: {id: id} }
-            );
+            const saltRounds = 10;
 
-            if(updatedUser === 0){
-                return res.status(404).json({ error : 'User not found'});
+            let hashedPassword = "";
+            if (password) {
+                hashedPassword = await bcrypt.hash(password, saltRounds);
             }
-            res.status(200).json(updatedUser)
+
+            const newUser = await UserModel.create({ 
+                    first_name: first_name,
+                    last_name: last_name,
+                    email: email,
+                    password: hashedPassword,
+                    role: role,
+                },
+            );
+            let newuserData = {
+                user_id: newUser.dataValues.user_id,
+                first_name: newUser.dataValues.first_name,
+                last_name: newUser.dataValues.last_name,
+                email: newUser.dataValues.email,
+                role: newUser.dataValues.role
+
+            }
+            res.status(201).json(newuserData)
 
         } catch (error) {
-            res.status(400).json({ error : error.message });
+            res.status(500).json({ error : error.message });
         }
     }
 
@@ -74,7 +124,7 @@ class UserController {
             if (password) updatedData.password = hashedPassword;
 
 
-            const updatedUser = await UserModel.update(updatedData,{ where: {id: id} });
+            const updatedUser = await UserModel.update(updatedData,{ where: {user_id: id} });
 
             if(updatedUser === 0){
                 return res.status(404).json({ error : 'User not found'});
@@ -82,11 +132,83 @@ class UserController {
             res.status(200).json(updatedUser)
 
         } catch (error) {
-            res.status(400).json({ error : error.message });
+            res.status(500).json({ error : error.message });
         }
     }
 
+    async deleteUserById(req, res){
+        const { id } = req.params;
+
+        try {
+
+            const deletedUser = await UserModel.destroy({ where: {user_id: id} });
+
+            if(deletedUser === 0){
+                return res.status(404).json({ error : 'User not found'});
+            }
+            res.status(200).json(deletedUser)
+
+        } catch (error) {
+            res.status(500).json({ error : error.message });
+        }
+    }
+    // TODO : Ajouter le service d'envoie de mails
+    async activateUserAlert(req, res){
+        const { id } = req.params;
+
+        try{
+            const user = await UserModel.findOne({ where: {user_id: id} });
+            if(user.dataValues.has_alert === false){
+                const newAlert = await UserModel.update(
+                    { has_alert: 1 },
+                    {
+                        where: {
+                            user_id: id
+                        },
+                    },
+                )
+
+                if( newAlert === 0){
+                    return res.status(404).json({ message: 'User not found' })
+                }
+                res.status(200).json(newAlert);
+            } else {
+                res.status(400).json({ message: 'The user as already an alert' })
+            }
+
+        } catch(error){
+            res.status(500).json({ error : error.message });
+        }
+    }
+
+    async deactivateUserAlert(req, res){
+        const { id } = req.params;
+
+        try{
+            const user = await UserModel.findOne({ where: {user_id: id} });
+            if(user.dataValues.has_alert === true){
+                const newAlert = await UserModel.update(
+                    { has_alert: 0 },
+                    {
+                        where: {
+                            user_id: id
+                        },
+                    },
+                )
+                if( newAlert === 0){
+                    return res.status(404).json({ message: 'User not found' })
+                }
+                res.status(200).json(newAlert);
+            } else {
+                res.status(400).json({ message: 'The user as not alert' })
+            }
+
+        } catch(error){
+            res.status(500).json({ error : error.message });
+        }
+    }
+    
 }
 
-module.exports = new UserController(UserModel);
+module.exports = new UserController();
 

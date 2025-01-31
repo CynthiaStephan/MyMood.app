@@ -1,24 +1,19 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require('../database');
 
-const Cohort = sequelize.define('cohort', {
-    id_cohort: {
-        type: DataTypes.INTEGER,
-        autoIncrement: true,
-        primaryKey: true,
-    },
-    name: {
-        type: DataTypes.STRING,
-        allowNull: false,
-    },
+const Cohort = sequelize.define('Cohort', {
+  cohort_id: {
+    type: DataTypes.INTEGER,
+    autoIncrement: true,
+    primaryKey: true
+  },
+  name: {
+    type: DataTypes.STRING(100),
+    allowNull: false
+  }
 }, {
-    timestamps: false,
+  tableName: 'cohort',
+  timestamps: false
 });
-
-// Associations
-Cohort.associate = () => {
-    // Cohort ↔ User (Many-to-Many via CohortUser)
-    Cohort.belongsToMany(User, { through: CohortUser, foreignKey: 'id_cohort' });
-};
 
 module.exports = Cohort;

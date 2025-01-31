@@ -1,32 +1,33 @@
-
 const { DataTypes } = require('sequelize');
 const sequelize = require('../database');
+const User = require('./userModel');
 
-const MoodScore = sequelize.define('mood_score', {
-    score_id: {
-        type: DataTypes.INTEGER,
-        autoIncrement: true,
-        primaryKey: true,
-    },
-    score: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-        validate : {
-            min: 0,
-            max: 100,
-        },
-    },
-    created_at: {
-        type: DataTypes.DATE,
-        allowNull: false,
-        defaultValue: DataTypes.NOW,
-    },
+const MoodScore = sequelize.define('MoodScore', {
+  score_id: {
+    type: DataTypes.INTEGER,
+    autoIncrement: true,
+    primaryKey: true
+  },
+  score: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+    validate: {
+      min: 0,
+      max: 100,
+    }
+  },
+  user_id: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+  }
+}, {
+  tableName: 'mood_score',
+  timestamps: true,
+  createdAt: 'created_at',
+  updatedAt: false,
 });
 
-// Associations
-MoodScore.associate = () => {
-    // MoodScore ↔ User (Many-to-One)
-    MoodScore.belongsTo(User, { foreignKey: 'id_user' });
-};
+MoodScore.belongsTo(User, { foreignKey: 'user_id' });
+User.hasMany(MoodScore, { foreignKey: 'user_id' });
 
 module.exports = MoodScore;
