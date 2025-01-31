@@ -166,6 +166,7 @@ http://localhost:3650/
   [
     1
   ]
+  ```
 
 #### Ajouter une alerte
 - **URL** : `/deactivate-alert/:user_id`
@@ -176,7 +177,8 @@ http://localhost:3650/
   [
     1
   ]
-
+  ```
+  
 ---
 
 ### 2. Gestion Mood Score

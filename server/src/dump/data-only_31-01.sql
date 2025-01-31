@@ -1,4 +1,4 @@
--- MySQL dump 10.13  Distrib 8.0.40, for Win64 (x86_64)
+-- MySQL dump 10.13  Distrib 8.0.38, for Win64 (x86_64)
 --
 -- Host: 127.0.0.1    Database: mood_db
 -- ------------------------------------------------------
@@ -23,15 +23,6 @@ LOCK TABLES `blacklist` WRITE;
 /*!40000 ALTER TABLE `blacklist` DISABLE KEYS */;
 INSERT INTO `blacklist` VALUES (1,2,6),(2,5,6);
 /*!40000 ALTER TABLE `blacklist` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Dumping data for table `blacklists`
---
-
-LOCK TABLES `blacklists` WRITE;
-/*!40000 ALTER TABLE `blacklists` DISABLE KEYS */;
-/*!40000 ALTER TABLE `blacklists` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -60,6 +51,7 @@ UNLOCK TABLES;
 
 LOCK TABLES `mood_score` WRITE;
 /*!40000 ALTER TABLE `mood_score` DISABLE KEYS */;
+INSERT INTO `mood_score` VALUES (1,52,1,'2025-01-31 09:46:27'),(2,1,2,'2025-01-31 09:46:35'),(3,89,3,'2025-01-31 09:46:43'),(4,23,4,'2025-01-31 09:46:52');
 /*!40000 ALTER TABLE `mood_score` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -82,4 +74,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-01-29  9:15:57
+-- Dump completed on 2025-01-31 10:48:19
