@@ -103,6 +103,24 @@ nav {
     margin: .8%;
 }
 
+.namePerson {
+    width: 60%;
+    height: 60%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.moodScore{
+    margin: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .moodPerson {
     display: flex;
     justify-content: center;
