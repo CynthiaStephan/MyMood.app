@@ -49,46 +49,152 @@ input[type="button"]:hover {
 /* Container Formation*/
 #global-container-formation {
     display: flex;
-    width: 500px;
+    width: 300px;
     justify-content: center;
     background-color: #D91E41;
     border: #1E1C59 1px solid;
     border-radius: 5px;
 }
 
+/* Style formation*/
+#container-creation-formation {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+#list-formation {
+    display: flex;
+    flex-wrap: wrap;
+    
+}
+
+.ul-formation-style {
+    padding: 0;
+}
+
+.list-formation-style {
+    list-style: none;
+    padding: 7px;
+    display: flex;
+}
+
+.label-formation-style {
+    display: inline-block;
+    width: 200px;
+    background-color: white;
+    border: #1E1C59 solid 1px;
+    border-radius: 3px;
+    padding: 5px 0 5px 10px;
+    
+}
+
+#myCheckbox-formation {
+    width: 25px;
+    height: 25px;
+    cursor: pointer;
+    accent-color: #1E1C59;
+}
+
+#btn-delete-formation {
+    background-color: white;
+    border: #1E1C59 solid 1px;
+    border-radius: 5px;
+    margin-bottom: 15px;
+    padding: 3px 10px;
+}
+
+#creation-formation{
+    margin-bottom: 15px;
+}
+
+#new-formation, #btn-formation-validation {
+    background-color: white;
+    border: #1E1C59 solid 1px;
+    border-radius: 5px;
+    padding: 3px 10px;
+}
 /* Container User*/
 #global-container-user {
     display: flex;
+    flex-wrap: wrap;
     background-color: #D91E41;
     border: #1E1C59 1px solid;
     border-radius: 5px;
 }
+#container-creation-user{
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin: 5px 10px;
+}
+
+#container-gestion-users{
+    display: flex;
+}
+
+.ul-user-style{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.list-user-style{
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 10px;
+    width: 100%;
+}
+
+.list-user-style p{
+    background-color: white;
+    padding: 3px 10px;
+    border: #1E1C59 1px solid;
+    border-radius: 5px;
+    
+}
+
+#delete-user{
+    padding: 3px 10px;
+    border: #1E1C59 1px solid;
+    border-radius: 5px;
+    
+}
+
+#container-btn-delete-user{
+    display: flex;
+    justify-content: flex-end;
+    margin: 10px;
+    
+}
+
 
 /* Dropdown formation select*/
 .dropdown {
     position: relative;
     display: inline-block;
-  }
+}
 
-  .dropdown-content {
+.dropdown-content {
     display: none;
     position: absolute;
     background-color: #f9f9f9;
     min-width: 200px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
     border-radius: 5px;
     z-index: 1;
-  }
+}
 
-  .dropdown:hover .dropdown-content {
+.dropdown:hover .dropdown-content {
     display: block;
-  }
+}
 
-  .dropdown-content label {
+.dropdown-content label {
     display: block;
     padding: 8px;
     cursor: pointer;
-  }
+}
 
 #dropdown-formation-validation {
     background-color: white;
