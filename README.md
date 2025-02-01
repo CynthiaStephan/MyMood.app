@@ -6,6 +6,7 @@ Une application web permettant de suivre et gérer le bien-être des étudiants 
 
 * **[Gestion des Branches GitHub](./doc/Guidelines.md)**
 * **[Documentation API](./doc/API.md)**
+* **[Fonctionnement de l'authentification](./doc/Authentication.md)**
 
 ## Fonctionnalités principales
 
