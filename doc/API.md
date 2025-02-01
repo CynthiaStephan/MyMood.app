@@ -378,6 +378,57 @@ http://localhost:3650/
   }
   ```
 
+Voici comment tu peux compléter ta documentation avec les méthodes `login` et `logout`, en suivant le même format que pour la gestion des blacklistes :
+
+---
+
+### 5. Authentification
+
+#### Connexion (Login)
+- **URL** : `/auth/login`
+- **Méthode** : POST
+- **Description** : Permet à un utilisateur de se connecter en utilisant son email et son mot de passe. Si les informations sont correctes, un token JWT est généré et renvoyé dans un cookie.
+- **Corps de la requête** :
+  ```json
+  {
+      "email": "user@example.com",
+      "password": "motdepasse123"
+  }
+  ```
+- **Réponse** :
+  Si la connexion réussit :
+  ```json
+  {
+    "id": 1,
+    "role": "admin"
+  }
+  ```
+  Si la connexion échoue :
+  ```json
+  {
+    "message": "Wrong email or password"
+  }
+  ```
+
+#### Déconnexion (Logout)
+- **URL** : `/auth/logout`
+- **Méthode** : POST
+- **Description** : Permet à un utilisateur de se déconnecter. Le cookie contenant le token JWT est supprimé.
+- **Réponse** :
+  Si la déconnexion réussit :
+  ```json
+  {
+    "message": "Successfully logged out"
+  }
+  ```
+  Si aucun token n'est trouvé :
+  ```json
+  {
+    "message": "You're already looged out"
+  }
+  ```
+
+
 ## Codes d'erreur
 
 | Code | Description |

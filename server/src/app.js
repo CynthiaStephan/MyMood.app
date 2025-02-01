@@ -1,8 +1,10 @@
 // Importing required modules
+require('dotenv').config();
 const express = require('express');
 const passport = require('passport');
 const cors = require('cors');
 const helmet = require('helmet');
+const cookieParser = require('cookie-parser');
 
 const authRoutes = require('./routes/authRoutes');
 const blacklistRoutes = require('./routes/blacklistRoutes');
@@ -15,6 +17,8 @@ const app = express();
 
 // Middleware to parse JSON requests
 app.use(express.json());
+// Middleware to parse cookies (sets req.cookies)
+app.use(cookieParser());
 // Middleware to parse URL-encoded data
 app.use(express.urlencoded({ extended: true }));
 // Adding security headers with Helmet
