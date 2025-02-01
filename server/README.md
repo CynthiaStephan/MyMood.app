@@ -29,10 +29,15 @@ Ce répertoire contient la partie backend de **MyMood.app**, une API RESTful per
 Crée un fichier `.env` à la racine et ajoute :
 
 ```env
-DB_USER=root
-DB_PASSWORD=motdepasse
-DB_NAME=mymood_db
-JWT_SECRET=supersecretkey
+    DB_USER=root
+    DB_PASSWORD=motdepasse
+    DB_NAME=mymood_db
+    SERVER_PORT=3650
+```
+
+Crée un fichier `.env` à la racine du dossier `📂server/` et ajoute :
+```env
+    JWT_SECRET=supersecretkey
 ```
 
 > ⚠️ **Remarque** : Remplace ces valeurs par celles de ton environnement !
@@ -84,7 +89,6 @@ JWT_SECRET=supersecretkey
 | Méthode | Endpoint        | Description |
 |---------|----------------|-------------|
 | `POST`  | `/auth/login`  | Connexion utilisateur (JWT) |
-| `POST`  | `/auth/signup` | Inscription d’un utilisateur |
 | `POST`  | `/auth/logout` | Déconnexion (invalidation du token) |
 
 ### 👥 **Utilisateurs**
