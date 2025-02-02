@@ -4,7 +4,7 @@ services:
     build:
       context: ./server
       dockerfile: ./Dockerfile
-    command: ./wait-for-it.sh database:3306 -- npm start
+    command: npm start
     ports:
       - ${SERVER_PORT}:${SERVER_PORT}
     volumes:
