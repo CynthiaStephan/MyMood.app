@@ -100,18 +100,19 @@ const router = Router();
 router.get('/:id', moodScoreController.getCurrentMoodByUserId);
 
 /**
+/**
  * @openapi
  * /mood/new/{id}:
  *   post:
- *     summary: Ajouter un score d'humeur pour un utilisateur
- *     description: Enregistre un nouveau score d'humeur pour un utilisateur spécifique.
+ *     summary: Ajouter ou mettre à jour le score d'humeur d'un utilisateur
+ *     description: Ajoute un nouveau score d'humeur ou met à jour le score existant pour un utilisateur spécifique. Si un score a déjà été enregistré le même jour, il sera mis à jour. Sinon, un nouveau score sera ajouté.
  *     tags:
  *       - Mood Score
  *     parameters:
  *       - in: path
  *         name: id
  *         required: true
- *         description: ID de l'utilisateur auquel on ajoute un score d'humeur.
+ *         description: ID unique de l'utilisateur pour lequel on veut ajouter ou mettre à jour le score d'humeur.
  *         schema:
  *           type: integer
  *     requestBody:
@@ -123,12 +124,29 @@ router.get('/:id', moodScoreController.getCurrentMoodByUserId);
  *             properties:
  *               score:
  *                 type: integer
- *                 description: Score d'humeur de l'utilisateur (ex: de 1 à 100).
+ *                 description: Le score d'humeur de l'utilisateur, exprimé en nombre entier (de 0 à 100).
+ *                 example: 75
  *     responses:
- *       201:
- *         description: Score d'humeur ajouté avec succès
+ *       200:
+ *         description: Le score d'humeur a été ajouté ou mis à jour avec succès
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 score_id:
+ *                   type: integer
+ *                   description: L'ID unique du score d'humeur.
+ *                 score:
+ *                   type: integer
+ *                   description: Le score d'humeur de l'utilisateur.
+ *                 user_id:
+ *                   type: integer
+ *                   description: L'ID de l'utilisateur auquel ce score d'humeur appartient.
  *       400:
- *         description: Données invalides fournies
+ *         description: Les données fournies sont invalides ou le score n'a pas pu être ajouté
+ *       500:
+ *         description: Erreur serveur interne
  */
 router.post('/new/:id', moodScoreController.addMoodScoreToUser);
 
