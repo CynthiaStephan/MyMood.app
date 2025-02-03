@@ -156,7 +156,6 @@ class UserController {
     // TODO : Ajouter le service d'envoie de mails
     async activateUserAlert(req, res){
         const { id } = req.params;
-
         try{
             const user = await UserModel.findOne({ where: {user_id: id} });
             if(user.dataValues.has_alert === false){
@@ -168,7 +167,6 @@ class UserController {
                         },
                     },
                 )
-
                 if( newAlert === 0){
                     return res.status(404).json({ message: 'User not found' })
                 }
