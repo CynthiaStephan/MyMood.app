@@ -157,7 +157,7 @@ router.put('/update/:id', userController.updateUserInfo);
 
 /**
  * @openapi
- * /user/{id}:
+ * /user/delete/{id}:
  *   delete:
  *     summary: Supprimer un utilisateur par son ID
  *     tags: [Users]
