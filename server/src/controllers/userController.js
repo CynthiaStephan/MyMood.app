@@ -108,7 +108,7 @@ class UserController {
 
     async updateUserInfo(req, res){
         const { id } = req.params;
-        const { first_name, last_name, email, password } = req.body;
+        const { first_name, last_name, email, password, role } = req.body;
 
         try {
             let hashedPassword = null;
@@ -122,6 +122,7 @@ class UserController {
             if (last_name) updatedData.last_name = last_name;
             if (email) updatedData.email = email;
             if (password) updatedData.password = hashedPassword;
+            if (role) updatedData.role = role;
 
 
             const updatedUser = await UserModel.update(updatedData,{ where: {user_id: id} });
