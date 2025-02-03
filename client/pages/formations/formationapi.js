@@ -1,4 +1,4 @@
-const requestUsers = 'http://localhost:3650/user';
+const requestUsers = 'http://localhost:3650/user/trainee-users';
 
 fetch(requestUsers)
     .then(
@@ -25,19 +25,34 @@ const moodColor = (mColor) => {
 
      switch(true) {
         case mColor <= 10 :
-            color = '#64BCEB';
-            break;
-        case mColor >= 11 && mColor <= 25 :
             color = '#0FFC4E';
             break;
-        case mColor >= 26 && mColor <= 50 :
-            color = '#F1D45D';
+        case mColor >= 11 && mColor <= 20 :
+            color = '#79E955';
             break;
-        case mColor >= 51 && mColor <= 75 :
-            color = '#FF9C46';
+        case mColor >= 21 && mColor <= 30 :
+            color = '#A4E258';
             break;
-        case mColor >= 76 && mColor <= 100 :
-            color = '#FF0F07';
+        case mColor >= 31 && mColor <= 40 :
+            color = '#CBDB5A';
+            break;
+        case mColor >= 41 && mColor <= 50 :
+            color = '#F2D45D';
+            break;
+        case mColor >= 51 && mColor <= 60 :
+            color = '#FFB250';
+            break;
+        case mColor >= 61 && mColor <= 70 :
+            color = '#FF8E40';
+            break;
+        case mColor >= 71 && mColor <= 80 :
+            color = '#FF5D2A';
+            break;
+        case mColor >= 81 && mColor <= 90 :
+            color = '#FF3919';
+            break;
+        case mColor >= 91 && mColor <= 100 :
+            color = '#FF0D06';
             break;
         default :
             color = '#000000';
@@ -57,19 +72,20 @@ const showUsers = (data) => {
         namePerson.classList.add('namePerson');
         let moodPerson = document.createElement('div');
         moodPerson.classList.add('moodPerson');
-        let moodscore = document.createElement('p');
-        moodscore.classList.add('moodscore');
+        let moodScore = document.createElement('p');
+        moodScore.classList.add('moodscore');
 
         namePerson.textContent = `${people.first_name} ${people.last_name}`;
         infoPerson.appendChild(namePerson);
     
-        moodscore.value = Math.floor(getRandomNumber(0, 100));
-        moodPerson.appendChild(moodscore);
+        moodScore.value = Math.floor(getRandomNumber(0, 100));
+        moodScore.textContent = moodScore.value;
+        moodPerson.appendChild(moodScore);
         infoPerson.appendChild(moodPerson);
     
         studentStatus.appendChild(infoPerson);
 
-        moodPerson.style.backgroundColor = moodColor(moodscore.textContent);
+        moodPerson.style.backgroundColor = moodColor(moodScore.textContent);
 
         // if (people.call == true) {
         //     document.getElementById(`${people.id}`).style.backgroundColor = '#FF6B6E';
@@ -77,12 +93,10 @@ const showUsers = (data) => {
         //     document.getElementById(`${people.id}`).style.backgroundColor = '#EFF2FF';
         // }
 
-        averageMood+=`${moodscore}`;
- 
+        averageMood+=moodScore.value;
     }
-        console.log(averageMood);
-    
-        // document.querySelector('.slider').value = (Math.floor(averageMood/i))
-        // document.querySelector('.sliderValue').textContent = (Math.floor(averageMood/i))
+
+    document.querySelector('.slider').value = (Math.floor(averageMood/data.length))
+    document.querySelector('.sliderValue').textContent = (Math.floor(averageMood/data.length))
 }
 
