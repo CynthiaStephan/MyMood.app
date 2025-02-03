@@ -37,7 +37,7 @@ http://localhost:3650/
     ```
 
 #### Obtenir tous les utilisateurs avec rôle stagiaire
-- **URL** : `/user/trainee-users`
+- **URL** : `/user/trainees`
 - **Méthode** : GET
 - **Description** : Récupère la liste de tous les utilisateurs.
 - **Réponse** : 

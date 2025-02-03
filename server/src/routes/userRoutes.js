@@ -67,7 +67,7 @@ router.get('/:id', userController.getUserById);
 
 /**
  * @openapi
- * /user:
+ * /user/new:
  *   post:
  *     summary: Créer un nouvel utilisateur
  *     tags: [Users]
@@ -97,11 +97,11 @@ router.get('/:id', userController.getUserById);
  *       500:
  *         description: Erreur serveur lors de la création de l'utilisateur
  */
-router.post('/', userController.createUser);
+router.post('/new', userController.createUser);
 
 /**
  * @openapi
- * /user/{id}:
+ * /user/update/{id}:
  *   put:
  *     summary: Mettre à jour les informations d'un utilisateur
  *     tags: [Users]
@@ -137,7 +137,7 @@ router.post('/', userController.createUser);
  *       500:
  *         description: Erreur serveur lors de la mise à jour de l'utilisateur
  */
-router.put('/:id', userController.updateUserInfo);
+router.put('/update/:id', userController.updateUserInfo);
 
 /**
  * @openapi
@@ -160,11 +160,11 @@ router.put('/:id', userController.updateUserInfo);
  *       500:
  *         description: Erreur serveur lors de la suppression de l'utilisateur
  */
-router.delete('/:id', userController.deleteUserById);
+router.delete('/delete/:id', userController.deleteUserById);
 
 /**
  * @openapi
- * /user/{id}/alerts/activate:
+ * /user/activate-alert/{id}:
  *   put:
  *     summary: Activer une alerte pour un utilisateur
  *     tags: [Users]
@@ -185,11 +185,11 @@ router.delete('/:id', userController.deleteUserById);
  *       500:
  *         description: Erreur serveur lors de l'activation de l'alerte
  */
-router.put('/:id/alerts/activate', userController.activateUserAlert);
+router.put('/activate-alert/:id', userController.activateUserAlert);
 
 /**
  * @openapi
- * /user/{id}/alerts/deactivate:
+ * /user/deactivate-alert/{id}:
  *   put:
  *     summary: Désactiver une alerte pour un utilisateur
  *     tags: [Users]
@@ -210,6 +210,6 @@ router.put('/:id/alerts/activate', userController.activateUserAlert);
  *       500:
  *         description: Erreur serveur lors de la désactivation de l'alerte
  */
-router.put('/:id/alerts/deactivate', userController.deactivateUserAlert);
+router.put('/deactivate-alert/:id', userController.deactivateUserAlert);
 
 module.exports = router;
