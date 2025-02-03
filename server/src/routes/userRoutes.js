@@ -44,6 +44,22 @@ router.get('/trainees', userController.getUsersWhenRoleTrainee);
 
 /**
  * @openapi
+ * /user/admin/user-info:
+ *   get:
+ *     summary: Récupérer les utilisateurs ayant le rôle de "trainee" et affiche ses info + les cohorts associées
+ *     tags: [Users]
+ *     responses:
+ *       200:
+ *         description: Liste des utilisateurs trainees récupérée avec succès
+ *       404:
+ *         description: Aucun utilisateurs trainee trouvés
+ *       500:
+ *         description: Erreur serveur lors de la récupération des utilisateurs trainees
+ */
+router.get('/admin/user-info', userController.getAllUsersInfoAndCohorts);
+
+/**
+ * @openapi
  * /user/{id}:
  *   get:
  *     summary: Récupérer un utilisateur par son ID
