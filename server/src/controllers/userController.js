@@ -1,5 +1,9 @@
 const UserModel = require('../models/userModel');
 const CohortModel = require('../models/cohortModel');
+const CohortUserModel = require('../models/cohortUserModel');
+const BlacklistModel = require('../models/blacklistModel');
+const MoodScoreModel = require('../models/moodScoreModel');
+
 const bcrypt = require('bcrypt');
 
 class UserController {
@@ -208,6 +212,58 @@ class UserController {
         }
     }
     
+    async deleteCascadUserById(req, res) {     
+        const { id } = req.params;
+        
+        const transaction = await sequelize.transaction();
+
+        try {
+            // Vérifier si l'utilisateur existe
+            const user = await UserModel.findByPk(id, { transaction });
+            if (!user) {
+                await transaction.rollback();
+                return res.status(404).json({ error: 'User not found' });
+            }
+
+            // Récupérer les cohortes associées à l'utilisateur
+            const userCohorts = await CohortModel.findAll({
+                include: [{ model: UserModel, where: { user_id: id }, through: { attributes: [] } }],
+                transaction
+            });
+
+            // Supprimer les dépendances dans l'ordre
+            await BlacklistModel.destroy({ where: { user_id: id }, transaction });
+            await MoodScoreModel.destroy({ where: { user_id: id }, transaction });
+            await CohortUserModel.destroy({ where: { user_id: id }, transaction }); // Suppression des liens user-cohort
+
+            // Supprimer l'utilisateur
+            const deletedUser = await UserModel.destroy({ where: { user_id: id }, transaction });
+            
+            if (deletedUser === 0) {
+                await transaction.rollback();
+                return res.status(404).json({ error: 'User could not be deleted' });
+            }
+
+            // Vérifier si les cohortes doivent être supprimées
+            for (const cohort of userCohorts) {
+                const remainingUsers = await CohortUserModel.count({
+                    where: { cohort_id: cohort.id_cohort },
+                    transaction
+                });
+                if (remainingUsers === 0) {
+                    await CohortModel.destroy({ where: { id_cohort: cohort.id_cohort }, transaction });
+                }
+            }
+            
+            // Valider la transaction
+            await transaction.commit();
+
+            res.status(200).json({ message: 'User successfully deleted' });
+        } catch (error) {
+            await transaction.rollback(); // Annuler toutes les suppressions en cas d'erreur
+            res.status(500).json({ error: error.message });
+        }
+    }
 }
 
 module.exports = new UserController();
