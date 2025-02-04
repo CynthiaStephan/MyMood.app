@@ -1,19 +1,24 @@
-const requestUsers = 'http://localhost:3650/user/trainee-users';
+const requestUsers = 'http://localhost:3650/user/';
 
 fetch(requestUsers)
     .then(
         response => response.json()
     )
     .then(
-        data => showUsers(data)
+        data => {
+            showUsers(data);
+            callMood(data);
+        }
     )
     .catch(
         error => console.log(error)
-)
+    )
 
-const getRandomNumber = (min, max) => {
-    return Math.random() * (max - min) + min
-}
+
+
+// const getRandomNumber = (min, max) => {
+//     return Math.random() * (max - min) + min
+// }
 
 
 let studentStatus = document.querySelector('#studentStatus');
@@ -60,7 +65,8 @@ const moodColor = (mColor) => {
      return color;
 }
 
-let averageMood = 0
+
+
 
 const showUsers = (data) => {
     
@@ -77,26 +83,64 @@ const showUsers = (data) => {
 
         namePerson.textContent = `${people.first_name} ${people.last_name}`;
         infoPerson.appendChild(namePerson);
-    
-        moodScore.value = Math.floor(getRandomNumber(0, 100));
-        moodScore.textContent = moodScore.value;
-        moodPerson.appendChild(moodScore);
-        infoPerson.appendChild(moodPerson);
+
     
         studentStatus.appendChild(infoPerson);
 
-        moodPerson.style.backgroundColor = moodColor(moodScore.textContent);
 
         // if (people.call == true) {
         //     document.getElementById(`${people.id}`).style.backgroundColor = '#FF6B6E';
         // } else {
         //     document.getElementById(`${people.id}`).style.backgroundColor = '#EFF2FF';
         // }
+        
+    }
+    
 
+}
+
+const callMood = (users) => {
+    users.forEach(user => {
+        fetch(`http://localhost:3650/mood/${user.user_id}`, {
+        method: 'GET',
+        headers: {
+        'Content-Type': 'application/json'
+        }})
+        .then(response => response.json()) 
+        .then(data => 
+            {console.log(user, data);
+            showMood(user, data)
+        })
+        .catch(error => console.error('Erreur:', error));
+    });
+}
+
+let averageMood = 0
+
+const showMood = (user, moodResult) => {
+
+    const userId = document.getElementById(user.user_id);
+    let moodPerson = document.createElement('div');
+    moodPerson.classList.add('moodPerson');
+    let moodScore = document.createElement('p');
+    moodScore.classList.add('moodscore');
+    moodScore.value = moodResult.score;
+    moodScore.textContent = moodScore.value;
+    moodScore.style.color = '#FFFFFF';
+
+    moodPerson.appendChild(moodScore);
+    userId.appendChild(moodPerson);
+
+    moodPerson.style.backgroundColor = moodColor(moodScore.textContent);
+    
+    if (isNaN(moodScore.value)) {
+        averageMood+=0;
+    } else {
         averageMood+=moodScore.value;
     }
 
-    document.querySelector('.slider').value = (Math.floor(averageMood/data.length))
-    document.querySelector('.sliderValue').textContent = (Math.floor(averageMood/data.length))
+    document.querySelector('.slider').value = (Math.floor(averageMood/user.length));
+    document.querySelector('.sliderValue').textContent = document.querySelector('.slider').value;
+
 }
 
