@@ -6,7 +6,7 @@ const MoodScoreModel = require('../models/moodScoreModel');
 
 const bcrypt = require('bcrypt');
 const sendMail = require('../service/mailer');
-const { json } = require('sequelize');
+const { json, Model } = require('sequelize');
 
 class UserController {
 
@@ -73,6 +73,30 @@ class UserController {
             console.log("Résultat Sequelize :", JSON.stringify(users, null, 2));
 
             res.status(200).json(users);
+        } catch (error) {
+            res.status(500).json({ error : error.message });
+        }
+    }
+
+    async getUserSupervisors(req, res){
+        const { id } = req.params
+        try {
+            // const supervisorInfo = await UserModel.findByPk(id, {
+            //     include: {
+            //       model: CohortModel, // On récupère les cohorts du trainee
+            //       include: {
+            //         model: UserModel, // On récupère les utilisateurs associés aux cohorts
+            //         where: { role: 'supervisor' }, // On filtre pour ne garder que les superviseurs
+            //         attributes: { exclude: ['password'] } // On ne récupère pas les mots de passe
+            //       }
+            //     }
+            // });
+            
+            if(!supervisorInfo || supervisorInfo.length === 0){
+                return res.status(404).json({ error : 'User not found'});
+            }
+            res.status(200).json(supervisorInfo);
+
         } catch (error) {
             res.status(500).json({ error : error.message });
         }
