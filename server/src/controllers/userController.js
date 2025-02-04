@@ -1,6 +1,9 @@
 const UserModel = require('../models/userModel');
 const CohortModel = require('../models/cohortModel');
+const MoodScoreModel = require('../models/moodScoreModel');
 const bcrypt = require('bcrypt');
+const sendMail = require('../service/mailer');
+const { json } = require('sequelize');
 
 class UserController {
 
@@ -170,7 +173,40 @@ class UserController {
                 if( newAlert === 0){
                     return res.status(404).json({ message: 'User not found' })
                 }
-                res.status(200).json(newAlert);
+
+                const userFirstName = user.dataValues.first_name;
+                const userLastName = user.dataValues.last_name;
+            
+                const to = "s.cynthia972@gmail.com";
+                const subject = `${userFirstName} ${userLastName} vous a envoyé une alerte`;
+                const text = `${userFirstName} ${userLastName} vous a envoyé une alerte`;
+                const html = `
+                    <div style="font-family: Arial, sans-serif; max-width: 37.5rem; margin: 1.25rem auto; padding: 1.25rem; border-radius: 0.625rem; background-color: #EFF2F7!important;">
+                        <h2 style="color: #1E1C59!important; text-align: center; font-size: 1.5rem;">🚨 Nouvelle alerte reçue</h2>
+                        <p style="font-size: 1rem; color: #242424!important; text-align: center;">
+                            <strong>${userFirstName} ${userLastName}</strong> vous a envoyé une alerte.
+                        </p>
+                        <div style="text-align: center; margin-top: 1.25rem;">
+                            <a href="https://mymood.app/alertes" 
+                            style="background-color: #D91E41!important; color: #ffffff!important; text-decoration: none; padding: 0.75rem 1.5rem; border-radius: 0.3125rem; font-size: 1rem; font-weight: bold; display: inline-block;">
+                                Voir l'alerte
+                            </a>
+                        </div>
+                        <p style="font-size: 0.875rem; color: #666!important; text-align: center; margin-top: 1.25rem;">
+                            Ceci est un message automatique, merci de ne pas y répondre.
+                        </p>
+                    </div>
+                `;
+                
+                const notification = await sendMail(to, subject, text, html);
+                if (notification.success) {
+                    console.log("Email sent successfully:", notification.message);
+                } else {
+                    console.error("Error while sending the email:", notification.message, notification.error);
+                }
+
+                return res.status(200).json(notification);
+                // res.status(200).json(newAlert);
             } else {
                 res.status(400).json({ message: 'The user as already an alert' })
             }
