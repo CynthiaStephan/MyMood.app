@@ -231,11 +231,36 @@ class UserController {
                 transaction
             });
 
-            // Supprimer les dépendances dans l'ordre
-            await BlacklistModel.destroy({ where: { user_id: id }, transaction });
-            await MoodScoreModel.destroy({ where: { user_id: id }, transaction });
-            await CohortUserModel.destroy({ where: { user_id: id }, transaction }); // Suppression des liens user-cohort
+            // Vérifier et supprimer les entrées dans la Blacklist
+            const blacklistEntry = await BlacklistModel.findOne({ where: { user_id: id }, transaction });
+            if (blacklistEntry) {
+                const deletedBlacklist = await BlacklistModel.destroy({ where: { user_id: id }, transaction });
+                if (deletedBlacklist === 0) {
+                    await transaction.rollback();
+                    return res.status(500).json({ error: 'Failed to delete Blacklist entry' });
+                }
+            }
 
+            // Vérifier et supprimer les scores d'humeur
+            const moodScores = await MoodScoreModel.findAll({ where: { user_id: id }, transaction });
+            if (moodScores.length > 0) {
+                const deletedMoodScores = await MoodScoreModel.destroy({ where: { user_id: id }, transaction });
+                if (deletedMoodScores === 0) {
+                    await transaction.rollback();
+                    return res.status(500).json({ error: 'Failed to delete MoodScores' });
+                }
+            }
+
+            // Vérifier et supprimer les liens user-cohorte
+            const cohortUserLinks = await CohortUserModel.findAll({ where: { user_id: id }, transaction });
+            if (cohortUserLinks.length > 0) {
+                const deletedCohortUserLinks = await CohortUserModel.destroy({ where: { user_id: id }, transaction });
+                if (deletedCohortUserLinks === 0) {
+                    await transaction.rollback();
+                    return res.status(500).json({ error: 'Failed to delete CohortUser links' });
+                }
+            }
+           
             // Supprimer l'utilisateur
             const deletedUser = await UserModel.destroy({ where: { user_id: id }, transaction });
             
@@ -244,17 +269,6 @@ class UserController {
                 return res.status(404).json({ error: 'User could not be deleted' });
             }
 
-            // Vérifier si les cohortes doivent être supprimées
-            for (const cohort of userCohorts) {
-                const remainingUsers = await CohortUserModel.count({
-                    where: { cohort_id: cohort.id_cohort },
-                    transaction
-                });
-                if (remainingUsers === 0) {
-                    await CohortModel.destroy({ where: { id_cohort: cohort.id_cohort }, transaction });
-                }
-            }
-            
             // Valider la transaction
             await transaction.commit();
 
