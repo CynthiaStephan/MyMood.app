@@ -142,7 +142,8 @@ function createUser() {
   const lastName = document.getElementById('last_name').value;
   const email = document.getElementById('email').value;
   const password = document.getElementById('password').value;
-  const role = document.getElementById('role').value;
+  const role = document.getElementById('role').value; 
+
 
   if (!firstName || !lastName || !email || !password || !role) {
     alert('Tous les champs sont requis.');
@@ -184,7 +185,8 @@ function createUser() {
 
 // Editer le role d'un user
 function editUserRole(userId) {
-  const newRole = prompt('Entrez le nouveau rôle de l\'utilisateur (trainee, supervisor, admin) :');
+  let newRole = prompt('Entrez le nouveau rôle de l\'utilisateur (trainee, supervisor, admin) :');
+  newRole = newRole ? newRole.toLowerCase() : ''; // Convertir en minuscule
   const validRoles = ['trainee', 'supervisor', 'admin'];
 
   if (!newRole || !validRoles.includes(newRole)) {
@@ -194,8 +196,7 @@ function editUserRole(userId) {
 
   const updatedRole = { role: newRole };
 
-  console.log({updatedRole,apiUrlUserUpdate,userId});
-  
+  console.log({updatedRole, apiUrlUserUpdate, userId});
 
   fetch(`${apiUrlUserUpdate}/${userId}`, { 
     method: 'PUT',
@@ -216,6 +217,7 @@ function editUserRole(userId) {
   })
   .catch(error => console.error('Erreur lors de la mise à jour du rôle:', error));
 }
+
 
 
 // Ajouter cohorte d'un user

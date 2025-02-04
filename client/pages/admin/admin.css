@@ -56,6 +56,7 @@ body {
     width: 100%;
     margin-top: 20px;
     border-collapse: collapse;
+    overflow: scroll;
   }
   table, th, td {
     border: 1px solid #ddd;
@@ -71,6 +72,11 @@ body {
   }
   .input-field {
     margin-bottom: 10px;
+  }
+
+  #scroll{
+    height: 600px;
+    overflow: scroll;
   }
 
 /* Bouton logout mobile*/
