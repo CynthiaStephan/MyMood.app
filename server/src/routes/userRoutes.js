@@ -83,6 +83,29 @@ router.get('/:id', userController.getUserById);
 
 /**
  * @openapi
+ * /user/supervisor/{id}:
+ *   get:
+ *     summary: Récupére les superviseurs associées à un stagiaire
+ *     tags: [Users]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: integer
+ *         description: ID unique de du stagiaire
+ *     responses:
+ *       200:
+ *         description: Utilisateur trouvé avec succès
+ *       404:
+ *         description: Utilisateur non trouvé
+ *       500:
+ *         description: Erreur serveur lors de la récupération de l'utilisateur
+ */
+router.get('/supervisor/:id', userController.getUserSupervisors);
+
+/**
+ * @openapi
  * /user/new:
  *   post:
  *     summary: Créer un nouvel utilisateur
