@@ -30,9 +30,9 @@
                 <h1>Gestion des Cohortes</h1>
 
                 <div class="input-field">
-                <label for="name">Nom de la cohorte :</label>
+                <label for="name">Nom de la cohorte :&nbsp;</label>
                 <input type="text" id="name" placeholder="Entrez le nom de la cohorte">
-                <button onclick="createCohort()">Ajouter</button>
+                <button onclick="createCohort()">Ajouter une cohorte</button>
                 </div>
 
                 <h2>Liste des Cohortes</h2>
@@ -48,6 +48,47 @@
                 </table>
             </section>
             <!-- Container Global des Utilisateurs-->
+            <section id="global-container-user">
+                <h1>Création d'utilisateur</h1>
+
+                <div class="input-field">
+                <label for="first_name">&nbsp;Prénom:&nbsp; </label>
+                <input type="text" id="first_name" placeholder="Martin">
+                <label for="last_name">&nbsp;Nom:&nbsp; </label>
+                <input type="text" id="last_name" placeholder="Gale">
+                <label for="email">&nbsp;Email:&nbsp; </label>
+                <input type="text" id="email" placeholder="martin.gale@email.com">
+                <label for="password">&nbsp;Mot de passe:&nbsp; </label>
+                <input type="text" id="password" placeholder="mot de passe">
+                <label for="role">&nbsp;Rôle:&nbsp; </label>
+                <select id="role">
+                <option value="trainee">Trainee</option>
+                <option value="supervisor">Supervisor</option>
+                <option value="admin">Admin</option>
+                </select>
+
+
+                <button onclick="createUser()">Ajouter un utilisateur</button>
+                </div>
+
+                <h2>Liste des Users</h2>
+                <div id="scroll">
+                <table id="userTable">
+                     <thead>
+                      <tr>
+                         <th>Id</th>
+                         <th>Prénom</th>
+                         <th>Nom</th>
+                         <th>Email</th>
+                         <th>Rôle</th>
+                         <th>Formation</th>
+                         <th>Actions</th>
+                      </tr>
+                   </thead>
+                  <tbody></tbody>
+                </table>
+            </div>
+            </section>
         </section>
     </main>
         <!--Bouton déconnexion mobile-->

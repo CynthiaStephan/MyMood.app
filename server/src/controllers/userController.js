@@ -1,6 +1,9 @@
 const UserModel = require('../models/userModel');
 const CohortModel = require('../models/cohortModel');
+const CohortUserModel = require('../models/cohortUserModel');
+const BlacklistModel = require('../models/blacklistModel');
 const MoodScoreModel = require('../models/moodScoreModel');
+
 const bcrypt = require('bcrypt');
 const sendMail = require('../service/mailer');
 const { json } = require('sequelize');
@@ -243,6 +246,72 @@ class UserController {
         }
     }
     
+    async deleteCascadUserById(req, res) {     
+        const { id } = req.params;
+        
+        const transaction = await sequelize.transaction();
+
+        try {
+            // Vérifier si l'utilisateur existe
+            const user = await UserModel.findByPk(id, { transaction });
+            if (!user) {
+                await transaction.rollback();
+                return res.status(404).json({ error: 'User not found' });
+            }
+
+            // Récupérer les cohortes associées à l'utilisateur
+            const userCohorts = await CohortModel.findAll({
+                include: [{ model: UserModel, where: { user_id: id }, through: { attributes: [] } }],
+                transaction
+            });
+
+            // Vérifier et supprimer les entrées dans la Blacklist
+            const blacklistEntry = await BlacklistModel.findAll({ where: { user_id: id }, transaction });
+            if (blacklistEntry) {
+                const deletedBlacklist = await BlacklistModel.destroy({ where: { user_id: id }, transaction });
+                if (deletedBlacklist === 0) {
+                    await transaction.rollback();
+                    return res.status(500).json({ error: 'Failed to delete Blacklist entry' });
+                }
+            }
+
+            // Vérifier et supprimer les scores d'humeur
+            const moodScores = await MoodScoreModel.findAll({ where: { user_id: id }, transaction });
+            if (moodScores.length > 0) {
+                const deletedMoodScores = await MoodScoreModel.destroy({ where: { user_id: id }, transaction });
+                if (deletedMoodScores === 0) {
+                    await transaction.rollback();
+                    return res.status(500).json({ error: 'Failed to delete MoodScores' });
+                }
+            }
+
+            // Vérifier et supprimer les liens user-cohorte
+            const cohortUserLinks = await CohortUserModel.findAll({ where: { user_id: id }, transaction });
+            if (cohortUserLinks.length > 0) {
+                const deletedCohortUserLinks = await CohortUserModel.destroy({ where: { user_id: id }, transaction });
+                if (deletedCohortUserLinks === 0) {
+                    await transaction.rollback();
+                    return res.status(500).json({ error: 'Failed to delete CohortUser links' });
+                }
+            }
+           
+            // Supprimer l'utilisateur
+            const deletedUser = await UserModel.destroy({ where: { user_id: id }, transaction });
+            
+            if (deletedUser === 0) {
+                await transaction.rollback();
+                return res.status(404).json({ error: 'User could not be deleted' });
+            }
+
+            // Valider la transaction
+            await transaction.commit();
+
+            res.status(200).json({ message: 'User successfully deleted' });
+        } catch (error) {
+            await transaction.rollback(); // Annuler toutes les suppressions en cas d'erreur
+            res.status(500).json({ error: error.message });
+        }
+    }
 }
 
 module.exports = new UserController();
