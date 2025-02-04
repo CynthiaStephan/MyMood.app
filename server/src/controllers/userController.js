@@ -232,7 +232,7 @@ class UserController {
             });
 
             // Vérifier et supprimer les entrées dans la Blacklist
-            const blacklistEntry = await BlacklistModel.findOne({ where: { user_id: id }, transaction });
+            const blacklistEntry = await BlacklistModel.findAll({ where: { user_id: id }, transaction });
             if (blacklistEntry) {
                 const deletedBlacklist = await BlacklistModel.destroy({ where: { user_id: id }, transaction });
                 if (deletedBlacklist === 0) {
