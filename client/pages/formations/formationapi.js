@@ -1,6 +1,8 @@
 const requestUsers = 'http://localhost:3650/user/trainees';
 
-fetch(requestUsers)
+fetch(requestUsers,{
+    credentials: "include"
+})
     .then(
         response => response.json()
     )
@@ -104,8 +106,10 @@ const callMood = (users) => {
         fetch(`http://localhost:3650/mood/${user.user_id}`, {
         method: 'GET',
         headers: {
-        'Content-Type': 'application/json'
-        }})
+            'Content-Type': 'application/json'
+        },
+        credentials: "include",
+    })
         .then(response => response.json()) 
         .then(data => 
             {console.log(user, data);
@@ -148,6 +152,7 @@ const showMood = (user, moodResult) => {
 function logout(){
     fetch(`${apiUrlLogout}`, {
       method: 'POST',
+      credentials: "include"
     })
     .catch(error => console.error('Problème lors de la déconnexion', error));
     localStorage.clear(); // Vide tout le localStorage

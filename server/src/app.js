@@ -17,6 +17,13 @@ const userRoutes = require('./routes/userRoutes');
 
 const app = express();
 
+const corsOptions = {
+  origin: ["http://localhost:5500", "http://127.0.0.1:5500"],
+  methods: "GET,POST,PUT,DELETE",
+  allowedHeaders: "Content-Type",   // Permet l'en-tête Content-Type
+  credentials: true
+};
+
 // API documentation with Swagger
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 // Middleware to parse JSON requests
@@ -28,7 +35,7 @@ app.use(express.urlencoded({ extended: true }));
 // Adding security headers with Helmet
 app.use(helmet());
 // Enabling CORS for cross-origin requests
-app.use(cors());
+app.use(cors(corsOptions));
 // Initializing Passport for authentication
 app.use(passport.initialize());
 
