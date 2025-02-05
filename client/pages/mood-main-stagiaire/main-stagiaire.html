@@ -24,21 +24,30 @@
     
     <section id="moodSection">
         
+        <div class="slider-btn">
 
-        <div class="btnDiv">
-            <button class="callBtn">Appel</button>
+            <div class="btnDiv">
+                <button class="callBtn">Appel</button>
+            </div>
+
+            <div class="sliderDiv">
+
+                <div><p>Je me sens mal</p></div>
+
+                    <div class="slidecontainer">
+                        <input type="range" orient="vertical" min="1" max="100" value="1" class="slider" id="myRange">
+                    </div>
+                
+                <div><p>Tout est OK.</p></div>
+
+            </div>
+
+            
+
         </div>
 
-        <div class="sliderDiv">
-
-            <div><p>Je me sens mal</p></div>
-
-                <div class="slidecontainer">
-                    <input type="range" orient="vertical" min="1" max="100" value="1" class="slider" id="myRange">
-                </div>
-               
-            <div><p>Tout est OK.</p></div>
-
+        <div class="sendBtn">
+                <button class="send">Envoyer Mood</button>
         </div>
 
     </section>

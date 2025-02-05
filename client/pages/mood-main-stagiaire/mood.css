@@ -89,21 +89,37 @@ p {
 /*----------------------------------------------------MOOD SECTION----------------------------------------------------*/
 
 #moodSection {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    height: 50vh;
+    height: auto;
     border: solid 1px var(--IMTS-red);
     border-radius: 10px;
     margin: 0px 10px;
     padding: 20px 0px;
 }
 
+.slider-btn {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
 .sliderDiv {
     display: flex;
     flex-direction: column;
     align-items: center;
+}
 
+.send {
+    all: unset;
+    background-color: var(--IMTS-blue);
+    border-radius: 5px;
+    color: #FFFFFF; 
+    padding: 10px 30px;
+    cursor: pointer;
+}
+
+.sendBtn {
+    display: flex;
+    justify-content: center;
 }
 
 
