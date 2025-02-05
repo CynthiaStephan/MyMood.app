@@ -17,7 +17,7 @@
     <header>
         <nav>
             <div class="navbar-container">
-                <input type="button" name="logout" id="logout" value="Déconnexion">
+                <a href="/client/index.html"><input onclick="logout()" type="button" name="logout" id="logout" value="Déconnexion"></a>
                 <a href="../profils/profils.html"><input type="button" name="profils" id="profils" value="Profils"></a>
             </div>
         </nav>
@@ -30,7 +30,7 @@
                 <h1>Gestion des Cohortes</h1>
 
                 <div class="input-field">
-                <label for="name">Nom de la cohorte :&nbsp;</label>
+                <label for="name">Nom de la cohorte :</label>
                 <input type="text" id="name" placeholder="Entrez le nom de la cohorte">
                 <button onclick="createCohort()">Ajouter une cohorte</button>
                 </div>
@@ -52,15 +52,15 @@
                 <h1>Création d'utilisateur</h1>
 
                 <div class="input-field">
-                <label for="first_name">&nbsp;Prénom:&nbsp; </label>
+                <label for="first_name">Prénom:</label>
                 <input type="text" id="first_name" placeholder="Martin">
-                <label for="last_name">&nbsp;Nom:&nbsp; </label>
+                <label for="last_name">Nom:</label>
                 <input type="text" id="last_name" placeholder="Gale">
-                <label for="email">&nbsp;Email:&nbsp; </label>
+                <label for="email">Email:</label>
                 <input type="text" id="email" placeholder="martin.gale@email.com">
-                <label for="password">&nbsp;Mot de passe:&nbsp; </label>
+                <label for="password">Mot de passe:</label>
                 <input type="text" id="password" placeholder="mot de passe">
-                <label for="role">&nbsp;Rôle:&nbsp; </label>
+                <label for="role">Rôle</label>
                 <select id="role">
                 <option value="trainee">Trainee</option>
                 <option value="supervisor">Supervisor</option>
@@ -93,7 +93,7 @@
     </main>
         <!--Bouton déconnexion mobile-->
         <footer>
-            <input type="button" name="logout-responsive" id="logout-responsive" value="Déconnexion">
+            <a href="/client/index.html"><input onclick="logout()" type="button" name="logout-responsive" id="logout-responsive" value="Déconnexion"></a>
         </footer>
 </body>
 </html>

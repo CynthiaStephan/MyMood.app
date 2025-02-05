@@ -9,6 +9,7 @@ const apiUrlCohortAsign = 'http://localhost:3650/cohort/asign-user';
 const apiUrlCohortUnasign = 'http://localhost:3650/cohort/unasign-user';
 const apiUrlUserCreate = 'http://localhost:3650/user/new';
 const apiUrlUserUpdate = 'http://localhost:3650/user/update';
+const apiUrlLogout = 'http://localhost:3650/auth/logout';
 
 
 
@@ -288,4 +289,13 @@ function deleteUser(userId) {
     })
     .catch(error => console.error('Erreur lors de la suppression:', error));
   }
+}
+
+// Se deconnecter
+function logout(){
+  fetch(`${apiUrlLogout}`, {
+    method: 'POST',
+  })
+  .catch(error => console.error('Problème lors de la déconnexion', error));
+  localStorage.clear(); // Vide tout le localStorage
 }
