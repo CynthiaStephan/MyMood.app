@@ -78,29 +78,51 @@ class UserController {
         }
     }
 
-    async getUserSupervisors(req, res){
-        const { id } = req.params
+    async getUserSupervisors(req, res) {
+        const { id } = req.params;
         try {
-            // const supervisorInfo = await UserModel.findByPk(id, {
-            //     include: {
-            //       model: CohortModel, // On récupère les cohorts du trainee
-            //       include: {
-            //         model: UserModel, // On récupère les utilisateurs associés aux cohorts
-            //         where: { role: 'supervisor' }, // On filtre pour ne garder que les superviseurs
-            //         attributes: { exclude: ['password'] } // On ne récupère pas les mots de passe
-            //       }
-            //     }
-            // });
-            
-            if(!supervisorInfo || supervisorInfo.length === 0){
-                return res.status(404).json({ error : 'User not found'});
+            const trainee = await UserModel.findByPk(id, {
+                // Specify the attributes (columns) to exclude in the result
+                attributes: { exclude: ['password'] },
+                
+                // Use the `include` option to eagerly load related models
+                include: {
+                    model: CohortModel,  // Include the Cohort model related to the User model (many-to-many relation)
+                    
+                    // Inside the Cohort model, we want to include another model (UserModel)
+                    // These are the users associated with each cohort
+                    include: {
+                        model: UserModel,  // Include the User model (this represents supervisors)
+                        
+                        // Apply a filter to only include users who are supervisors
+                        where: { role: 'supervisor' },  // We only want users with the role 'supervisor'
+                        
+                        // Exclude the password field from the supervisors
+                        attributes: { exclude: ['password'] }
+                    }
+                }
+            }); 
+    
+            // Check if the user is a trainee
+            if (!trainee || trainee.role !== 'trainee') {
+                console.log('This user is not a trainee or was not found');
+                return res.status(400).json({ error: 'User is not a trainee or not found' });
             }
-            res.status(200).json(supervisorInfo);
-
+    
+            // Extract the supervisors associated with the trainee
+            const supervisors = trainee.Cohorts.flatMap(cohort => 
+                cohort.users.map(user => user)
+            );
+    
+            return res.status(200).json({ supervisors });
+    
         } catch (error) {
-            res.status(500).json({ error : error.message });
+            console.error('Error retrieving supervisor information:', error);
+            return res.status(500).json({ error: error.message });
         }
     }
+    
+    
 
     async createUser(req, res){
         const { first_name, last_name, email, password, role  } = req.body;
@@ -318,7 +340,7 @@ class UserController {
                     return res.status(500).json({ error: 'Failed to delete CohortUser links' });
                 }
             }
-           
+        
             // Supprimer l'utilisateur
             const deletedUser = await UserModel.destroy({ where: { user_id: id }, transaction });
             
