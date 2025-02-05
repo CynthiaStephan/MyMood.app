@@ -1,42 +1,46 @@
+// Attendre que le DOM soit complètement chargé avant d'exécuter le code
 document.addEventListener("DOMContentLoaded", () => {
+
     const form = document.querySelector("form");
   
     form.addEventListener("submit", (event) => {
-      event.preventDefault(); // Empêche le rechargement de la page
+      // Empêcher le comportement par défaut (rechargement de la page)
+      event.preventDefault();
   
-      // Récupérer les valeurs du formulaire
-      const login = document.getElementById("login").value;
+      // Récupérer les valeurs saisies dans les champs de formulaire
+      const login = document.getElementById("login").value; 
       const password = document.getElementById("password").value;
   
-      // Construire l'objet JSON
+      // Construire un objet JSON avec les données du formulaire
       const formData = {
-        email: login,
-        password: password,
+        email: login,      
+        password: password 
       };
   
+
       console.log("Données à envoyer :", formData);
   
-      // Envoyer les données à l'API
       fetch("http://localhost:3650/auth/login", {
-        method: "POST",
+        method: "POST", 
         headers: {
-          "Content-Type": "application/json",
+          "Content-Type": "application/json", 
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify(formData), // Convertir l'objet formData en chaîne JSON
       })
         .then((response) => {
           if (!response.ok) {
             throw new Error("Erreur lors de la connexion");
           }
+          // Retourne la réponse sous forme de JSON
           return response.json();
         })
         .then((data) => {
           console.log("Réponse de l'API :", data);
-
-          // Stockage dans le localStorage
-        localStorage.setItem("userData", JSON.stringify(data));
   
-          // Redirection en fonction du rôle
+          // Stocker les données de l'utilisateur dans le localStorage 
+          localStorage.setItem("userData", JSON.stringify(data));
+  
+          // Rediriger l'utilisateur en fonction de son rôle
           switch (data.role) {
             case "admin":
               window.location.href = "/client/pages/admin/admin.html";
@@ -57,4 +61,3 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
   });
-  
