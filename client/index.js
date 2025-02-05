@@ -26,6 +26,7 @@ document.addEventListener("DOMContentLoaded", () => {
           "Content-Type": "application/json", 
         },
         body: JSON.stringify(formData), // Convertir l'objet formData en chaîne JSON
+        credentials: "include",
       })
         .then((response) => {
           if (!response.ok) {
