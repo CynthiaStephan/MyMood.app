@@ -199,7 +199,7 @@ router.put('/update/:id', userController.updateUserInfo);
  *       500:
  *         description: Erreur serveur lors de la suppression de l'utilisateur
  */
-router.delete('/delete/:id', userController.deleteUserById);
+router.delete('/delete/:id', userController.deleteCascadUserById);
 
 /**
  * @openapi
