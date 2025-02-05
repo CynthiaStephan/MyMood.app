@@ -1,4 +1,4 @@
-const requestUsers = 'http://localhost:3650/user/';
+const requestUsers = 'http://localhost:3650/user/trainees';
 
 fetch(requestUsers)
     .then(
@@ -88,11 +88,11 @@ const showUsers = (data) => {
         studentStatus.appendChild(infoPerson);
 
 
-        // if (people.call == true) {
-        //     document.getElementById(`${people.id}`).style.backgroundColor = '#FF6B6E';
-        // } else {
-        //     document.getElementById(`${people.id}`).style.backgroundColor = '#EFF2FF';
-        // }
+        if (people.has_alert == true) {
+            document.getElementById(`${people.user_id}`).style.backgroundColor = '#FF6B6E';
+        } else {
+            document.getElementById(`${people.user_id}`).style.backgroundColor = '#EFF2FF';
+        }
         
     }
     
