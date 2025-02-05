@@ -1,5 +1,6 @@
 let slider = document.querySelector('.slider');
 let callBtn = document.querySelector('.callBtn');
+let send = document.querySelector('.send');
 
 const sendSliderValue = (user) => {
     let sliderValue = slider.value;
@@ -17,4 +18,4 @@ const sendSliderValue = (user) => {
     .catch(error => console.log(error)) 
 }
 
-slider.addEventListener("mouseup", () => sendSliderValue(1));
+send.addEventListener("click", () => sendSliderValue(1));
