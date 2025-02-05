@@ -131,7 +131,7 @@ function getUser() {
     .catch(error => console.error('Erreur lors de la récupération:', error));
 }
 
-// Charger les cohortes au chargement de la page
+// Charger les cohortes et les users au chargement de la page
 window.onload = function () {
   getCohorts();
   getUser();
