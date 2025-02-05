@@ -144,3 +144,11 @@ const showMood = (user, moodResult) => {
 
 }
 
+// Se deconnecter
+function logout(){
+    fetch(`${apiUrlLogout}`, {
+      method: 'POST',
+    })
+    .catch(error => console.error('Problème lors de la déconnexion', error));
+    localStorage.clear(); // Vide tout le localStorage
+  }
