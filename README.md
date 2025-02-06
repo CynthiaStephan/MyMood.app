@@ -6,6 +6,7 @@ Une application web permettant de suivre et gérer le bien-être des étudiants 
 
 * **[Gestion des Branches GitHub](./doc/Guidelines.md)**
 * **[Documentation API](./doc/API.md)**
+* **[Configuration envoie de mails](./doc/ConfigurationMail.md)**
 * **[Fonctionnement de l'authentification](./doc/Authentication.md)**
 
 ## Fonctionnalités principales
@@ -27,9 +28,10 @@ Une application web permettant de suivre et gérer le bien-être des étudiants 
 ## Technique
 
 - **Front** : HTML/CSS/JS
-- **Back** : Node.js, MySQL
+- **Back** : Node.js, Express MySQL
 - **Sécurité** : Authentification JWT
-- **Déploiement** : Docker
+- **Environement** : Docker, Postman, Workbench
+- **Gestion de projet** : Notion, Google Chat
 
 ## Installation
 
@@ -45,7 +47,13 @@ docker-compose up -d --build
 ## Auteur
 
 Développé dans le cadre d'un projet de groupe à l'IMTS par : 
+  [Manuel](https://github.com/Sir-Nunul)
+  [Thibaud](https://github.com/PhysicxG)
+  [Evan](https://github.com/EvanBenyahiaNorves)
+  [Cloë](https://github.com/LyliYoune)
+  [Cynthia](https://github.com/CynthiaStephan)
 
 <a href="https://github.com/CynthiaStephan/MyMood.app/graphs/contributors">
   <img src="https://contrib.rocks/image?repo=CynthiaStephan/MyMood.app" />
 </a>
+
