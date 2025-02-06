@@ -15,7 +15,9 @@ const apiUrlLogout = 'http://localhost:3650/auth/logout';
 
 // Récupérer les cohortes depuis l'API
 function getCohorts() {
-  fetch(apiUrlCohort)
+  fetch(apiUrlCohort, {
+    credentials: "include",
+  })
     .then(response => response.json())
     .then(data => {
       const tableBody = document.querySelector('#cohortTable tbody');
@@ -52,6 +54,7 @@ function createCohort() {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify(newCohort),
+    credentials: "include",
   })
   .then(response => response.json())
   .then(data => {
@@ -78,6 +81,7 @@ function editCohort(cohortId) {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify(updatedCohort),
+    credentials: "include",
   })
   .then(response => response.json())
   .then(data => {
@@ -92,6 +96,7 @@ function deleteCohort(cohortId) {
   if (confirm('Êtes-vous sûr de vouloir supprimer cette cohorte ?')) {
     fetch(`${apiUrlCohortDelete}/${cohortId}`, {
       method: 'DELETE',
+      credentials: "include",
     })
     .then(() => {
       console.log(`Cohorte avec ID ${cohortId} supprimée`);
@@ -103,7 +108,9 @@ function deleteCohort(cohortId) {
 
 // Récupérer les users depuis l'API
 function getUser() {
-  fetch(apiUrlUser)
+  fetch(apiUrlUser, {
+    credentials: "include",
+  })
     .then(response => response.json())
     .then(data => {
       const tableBody = document.querySelector('#userTable tbody');
@@ -168,6 +175,7 @@ function createUser() {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify(newUser),
+    credentials: "include",
   })
   .then(response => response.json())
   .then(data => {
@@ -205,6 +213,7 @@ function editUserRole(userId) {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify(updatedRole),
+    credentials: "include",
   })
   .then(response => {
     if (!response.ok) {
@@ -268,6 +277,7 @@ function deleteUserCohort(userId) {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify(deletedCohort),
+    credentials: "include",
   })
     .then(response => response.json())
     .then(data => {
@@ -282,6 +292,7 @@ function deleteUser(userId) {
   if (confirm('Êtes-vous sûr de vouloir supprimer cet utilisateur ?')) {
     fetch(`${apiUrlUserDelete}/${userId}`, {
       method: 'DELETE',
+      credentials: "include",
     })
     .then(() => {
       console.log(`User avec ID ${userId} supprimée`);
@@ -293,9 +304,11 @@ function deleteUser(userId) {
 
 // Se deconnecter
 function logout(){
+  localStorage.clear(); // Vide tout le localStorage
   fetch(`${apiUrlLogout}`, {
     method: 'POST',
+    credentials: "include",
   })
   .catch(error => console.error('Problème lors de la déconnexion', error));
-  localStorage.clear(); // Vide tout le localStorage
+
 }

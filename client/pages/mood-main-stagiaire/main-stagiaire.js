@@ -18,7 +18,8 @@ const sendSliderValue = () => {
         },
         body: JSON.stringify({ //// Corps de la requête, contenant la valeur du slider sous forme de JSON
             "score": sliderValue
-        })
+        }),
+        credentials: "include"
     })
     .then(response => response.json())
     .then(data => console.log(data))
@@ -32,7 +33,8 @@ send.addEventListener("click", () => sendSliderValue());
 function logout(){
     localStorage.clear(); // Vide tout le localStorage
     fetch(`${apiUrlLogout}`, {
-      method: 'POST',
+        method: 'POST',
+        credentials: "include",
     })
     .catch(error => console.error('Problème lors de la déconnexion', error));
   }

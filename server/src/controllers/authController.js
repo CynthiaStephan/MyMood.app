@@ -15,12 +15,12 @@ class AuthController {
                 return res.status(401).json({ message: "Wrong email or password" });
             }
 
-            const token = jwt.sign({ username: user.username, role: user.role }, process.env.JWT_SECRET, { expiresIn: '1h' });
+            const token = jwt.sign({ username: user.username, role: user.role }, process.env.JWT_SECRET, { expiresIn: '5h' });
             console.log(`Token: ${token}`)
             res.cookie("token", token, {
                 httpOnly: true,
                 secure: false, // Passer en true en prod (https)
-                sameSite: "none", // Passer en true en prod()
+                sameSite: 'None', // Passer en true en prod()
               });
             res.json({
                 id: user.user_id,
@@ -31,6 +31,7 @@ class AuthController {
             res.status(500).json({ error : error.message });
         }
     }
+    
 
     async logout(req, res) {
         try {
@@ -40,7 +41,7 @@ class AuthController {
             res.cookie("token", "", {
                 httpOnly: true,
                 secure: false, // Passer en true en prod (https)
-                sameSite: "none", // Passer en true en prod()
+                sameSite: 'None', // Passer en true en prod()
                 expires: new Date(0),
             });
     
