@@ -1,13 +1,14 @@
 const requestUsers = 'http://localhost:3650/user/trainees';
 
+// Requête fetch pour récupérer les utilisateurs
 fetch(requestUsers)
     .then(
         response => response.json()
     )
     .then(
         data => {
-            showUsers(data);
-            callMood(data);
+            showUsers(data); //Fonction pour les utilisateurs
+            callMood(data); // Fonction pour le mood
         }
     )
     .catch(
@@ -16,14 +17,10 @@ fetch(requestUsers)
 
 
 
-// const getRandomNumber = (min, max) => {
-//     return Math.random() * (max - min) + min
-// }
-
-
 let studentStatus = document.querySelector('#studentStatus');
 let moodPerson = document.querySelector('.moodPerson');
 
+// Fonction pour déterminer la couleur de la pastille en fonction du score de l'humeur
 const moodColor = (mColor) => {
 
    let color;
@@ -65,9 +62,7 @@ const moodColor = (mColor) => {
      return color;
 }
 
-
-
-
+// Fonction qui crée et affiche des informations sur chaque utilisateur
 const showUsers = (data) => {
     
     for (let people of data) {
@@ -87,7 +82,7 @@ const showUsers = (data) => {
     
         studentStatus.appendChild(infoPerson);
 
-
+        // Passe la case de l'utilisateur en rouge si celui-ci déclenche une alerte
         if (people.has_alert == true) {
             document.getElementById(`${people.user_id}`).style.backgroundColor = '#FF6B6E';
         } else {
@@ -99,6 +94,7 @@ const showUsers = (data) => {
 
 }
 
+// Fonction qui récupère et affiche l'humeur de chaque utilisateur
 const callMood = (users) => {
     users.forEach(user => {
         fetch(`http://localhost:3650/mood/${user.user_id}`, {
@@ -115,8 +111,10 @@ const callMood = (users) => {
     });
 }
 
+// Variable qui servira a afficher la moyenne de mood de la formation sélectionnée
 let averageMood = 0
 
+// Fonction afichant le numéro correspondant a l'humeur de l'utilisateur
 const showMood = (user, moodResult) => {
 
     const userId = document.getElementById(user.user_id);
@@ -131,14 +129,17 @@ const showMood = (user, moodResult) => {
     moodPerson.appendChild(moodScore);
     userId.appendChild(moodPerson);
 
+    // Applique la couleur en fonction du score de l'humeur
     moodPerson.style.backgroundColor = moodColor(moodScore.textContent);
     
+    // Manipulation de la variable contenant la moyenne de mood de la formation
     if (isNaN(moodScore.value)) {
         averageMood+=0;
     } else {
         averageMood+=moodScore.value;
     }
 
+    // Affiche la moyenne de mood sur un slider et met à jour la valeur du slider
     document.querySelector('.slider').value = (Math.floor(averageMood/user.length));
     document.querySelector('.sliderValue').textContent = document.querySelector('.slider').value;
 
@@ -146,9 +147,9 @@ const showMood = (user, moodResult) => {
 
 // Se deconnecter
 function logout(){
+    localStorage.clear(); // Vide tout le localStorage
     fetch(`${apiUrlLogout}`, {
       method: 'POST',
     })
     .catch(error => console.error('Problème lors de la déconnexion', error));
-    localStorage.clear(); // Vide tout le localStorage
   }
