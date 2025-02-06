@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     try {
         const response = await fetch("/auth/user-info", {
             method: "GET",
-            credentials: "include"
+            // credentials: "include"
         });
         if (response.ok) {
             const data = await response.json();
