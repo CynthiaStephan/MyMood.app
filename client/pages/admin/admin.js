@@ -293,9 +293,10 @@ function deleteUser(userId) {
 
 // Se deconnecter
 function logout(){
+  localStorage.clear(); // Vide tout le localStorage
   fetch(`${apiUrlLogout}`, {
     method: 'POST',
   })
   .catch(error => console.error('Problème lors de la déconnexion', error));
-  localStorage.clear(); // Vide tout le localStorage
+
 }
