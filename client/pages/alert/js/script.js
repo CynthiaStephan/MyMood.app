@@ -1,7 +1,8 @@
 document.addEventListener("DOMContentLoaded", async () => {
     const confirmButton = document.getElementById("confirm-button");
     const cancelButton = document.getElementById("cancel-button");
-    
+
+    // user_id sera stocké dans le localstorage
     let userId;
     try {
         const response = await fetch("/auth/user-info", {
