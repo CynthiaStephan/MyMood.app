@@ -7,6 +7,7 @@ const helmet = require('helmet');
 const cookieParser = require('cookie-parser');
 const swaggerUi = require("swagger-ui-express");
 const swaggerSpec = require("./swaggerConfig");
+const verifyToken = require('./middlewares/verifyToken');
 
 
 const authRoutes = require('./routes/authRoutes');
