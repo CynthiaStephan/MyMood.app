@@ -38,6 +38,8 @@ Crée un fichier `.env` à la racine et ajoute :
 Crée un fichier `.env` à la racine du dossier `📂server/` et ajoute :
 ```env
     JWT_SECRET=supersecretkey
+    GMAIL_USER=adressemail@gmail.com
+    GMAIL_APP_PASS=motdepasseapplication
 ```
 
 > ⚠️ **Remarque** : Remplace ces valeurs par celles de ton environnement !
@@ -48,37 +50,44 @@ Crée un fichier `.env` à la racine du dossier `📂server/` et ajoute :
 
 ```
 📂 server
-├── Dockerfile              # Fichier Docker pour containeriser l'application
-├── package.json            # Fichier de configuration npm
+├── Dockerfile               # Fichier Docker pour containeriser l'application
+├── package.json             # Fichier de configuration npm
 └── 📂 src
-    │── app.js              # Configuration principale de l'application
-    │── database.js         # Configuration et connexion à la base de données
-    │── index.js            # Point d'entrée du serveur
+    │── app.js               # Configuration principale de l'application
+    │── database.js          # Configuration et connexion à la base de données
+    │── index.js             # Point d'entrée du serveur
+    │── swaggerConfig.js     # Configuration pour Swagger (documentation API)
     │
-    ├── 📂 controllers      # Logique métier (controllers)
+    ├── 📂 controllers       # Logique métier (controllers)
     │   ├── authController.js
     │   ├── blacklistController.js
     │   ├── cohortController.js
     │   ├── moodScoreController.js
     │   ├── userController.js
     │
-    ├── 📂 dump             # Sauvegardes de la base de données
+    ├── 📂 dump              # Sauvegardes de la base de données
     │   ├── data-only_31-01.sql
     │   ├── db-data_29-01.sql
     │
-    ├── 📂 models           # Modèles Sequelize représentant les tables de la BDD
+    ├── 📂 middlewares       # Middlewares (par exemple, pour la vérification des tokens)
+    │   ├── verifyToken.js
+    │
+    ├── 📂 models            # Modèles Sequelize représentant les tables de la BDD
     │   ├── blacklistModel.js
     │   ├── cohortModel.js
     │   ├── cohortUserModel.js
     │   ├── moodScoreModel.js
     │   ├── userModel.js
     │
-    └── 📂 routes           # Routes définissant les endpoints de l'API
-        ├── authRoutes.js
-        ├── blacklistRoutes.js
-        ├── cohortRoutes.js
-        ├── moodScoreRoutes.js
-        ├── userRoutes.js
+    ├── 📂 routes            # Routes définissant les endpoints de l'API
+    │   ├── authRoutes.js
+    │   ├── blacklistRoutes.js
+    │   ├── cohortRoutes.js
+    │   ├── moodScoreRoutes.js
+    │   ├── userRoutes.js
+    │
+    └── 📂 service           # Services supplémentaires (ex: pour l'envoi d'emails)
+        ├── mailer.js
 ```
 
 ---
@@ -94,32 +103,45 @@ Crée un fichier `.env` à la racine du dossier `📂server/` et ajoute :
 ### 👥 **Utilisateurs**
 | Méthode | Endpoint         | Description |
 |---------|-----------------|-------------|
-| `GET`   | `/users/`        | Récupérer tous les utilisateurs |
-| `GET`   | `/users/:id`     | Récupérer un utilisateur par ID |
-| `POST`  | `/users/new`     | Créer un utilisateur |
-| `PUT`   | `/users/update/:id` | Modifier un utilisateur |
-| `DELETE` | `/users/delete/:id` | Supprimer un utilisateur |
-
-### 🎓 **Cohortes**
-| Méthode | Endpoint         | Description |
-|---------|-----------------|-------------|
-| `GET`   | `/cohorts/`      | Récupérer toutes les cohortes |
-| `POST`  | `/cohorts/new`   | Créer une cohorte |
-| `PUT`   | `/cohorts/:id`   | Modifier une cohorte |
-| `DELETE` | `/cohorts/:id`  | Supprimer une cohorte |
-
-### 📊 **Scores d'humeur**
-| Méthode | Endpoint            | Description |
-|---------|--------------------|-------------|
-| `GET`   | `/mood-scores/`    | Récupérer tous les scores |
-| `POST`  | `/mood-scores/new` | Enregistrer un score d'humeur |
+| `GET`   | `/user/`        | Récupérer tous les utilisateurs |
+| `GET`   | `/user/trainees` | Récupérer les utilisateurs ayant le rôle de "trainee" |
+| `GET`   | `/user/:user_id` | Récupérer un utilisateur par ID |
+| `GET`   | `/user/admin/user-info` | Récupérer les utilisateurs ayant le rôle de "trainee" et afficher leurs infos + les cohortes associées |
+| `POST`  | `/user/new`     | Créer un utilisateur |
+| `PUT`   | `/user/update/:user_id` | Modifier un utilisateur |
+| `DELETE` | `/user/delete/:user_id` | Supprimer un utilisateur |
 
 ### 🚨 **Alertes**
 | Méthode | Endpoint                   | Description |
 |---------|----------------------------|-------------|
-| `PUT`   | `/users/activate-alert/:id`   | Activer une alerte pour un utilisateur |
-| `PUT`   | `/users/deactivate-alert/:id` | Désactiver une alerte |
-| `GET`   | `/alerts/`                    | Voir toutes les alertes |
+| `PUT`   | `/activate-alert/:user_id`   | Activer une alerte pour un utilisateur |
+| `PUT`   | `/deactivate-alert/:user_id` | Désactiver une alerte |
+
+### 🎓 **Cohortes**
+| Méthode | Endpoint         | Description |
+|---------|-----------------|-------------|
+| `GET`   | `/cohort/`      | Récupérer toutes les cohortes |
+| `GET`   | `/cohort/:cohort_id` | Récupérer une cohorte par ID |
+| `POST`  | `/cohort/new`   | Créer une cohorte |
+| `PUT`   | `/cohort/update/:cohort_id` | Modifier une cohorte |
+| `DELETE` | `/cohort/delete/:cohort_id` | Supprimer une cohorte |
+| `POST`  | `/cohort/asign-user` | Assigner un utilisateur à une cohorte |
+| `DELETE` | `/cohort/unasign-user` | Retirer un utilisateur d'une cohorte |
+
+### 📊 **Scores d'humeur**
+| Méthode | Endpoint            | Description |
+|---------|--------------------|-------------|
+| `GET`   | `/mood/:user_id`    | Afficher le dernier score d'un stagiaire |
+| `POST`  | `/mood/new` | Enregistrer un score d'humeur |
+
+### 🚫 **Blacklistes**
+| Méthode | Endpoint                   | Description |
+|---------|----------------------------|-------------|
+| `GET`   | `/blacklist/`              | Récupérer la liste complète des entrées de la blacklist |
+| `GET`   | `/blacklist/users/:supervisor_id` | Afficher les stagiaires blacklistés |
+| `POST`  | `/blacklist/add`           | Ajouter un stagiaire à la blacklist |
+| `POST`  | `/blacklist/add-many`      | Ajouter plusieurs stagiaires à la blacklist |
+| `DELETE` | `/blacklist/remove`        | Supprimer un ou plusieurs stagiaires de la blacklist |
 
 ---
 
