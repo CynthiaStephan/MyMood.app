@@ -2,7 +2,6 @@
 
 Ce répertoire contient la partie backend de **MyMood.app**, une API RESTful permettant la gestion des utilisateurs, des cohortes et du suivi des émotions des étudiants.
 
----
 
 ## 🚀 Technologies utilisées
 
@@ -16,7 +15,6 @@ Ce répertoire contient la partie backend de **MyMood.app**, une API RESTful per
 - **helmet & cors** - Sécurisation des requêtes HTTP
 - **nodemon** - Rechargement automatique en développement
 
----
 
 ## 🛠️ Installation et configuration
 
@@ -44,7 +42,6 @@ Crée un fichier `.env` à la racine du dossier `📂server/` et ajoute :
 
 > ⚠️ **Remarque** : Remplace ces valeurs par celles de ton environnement !
 
----
 
 ## 📂 Structure du projet
 
@@ -90,7 +87,6 @@ Crée un fichier `.env` à la racine du dossier `📂server/` et ajoute :
         ├── mailer.js
 ```
 
----
 
 ## 📡 Routes API
 
@@ -143,13 +139,6 @@ Crée un fichier `.env` à la racine du dossier `📂server/` et ajoute :
 | `POST`  | `/blacklist/add-many`      | Ajouter plusieurs stagiaires à la blacklist |
 | `DELETE` | `/blacklist/remove`        | Supprimer un ou plusieurs stagiaires de la blacklist |
 
----
-
-## 🔔 Notifications
-
-- **Emails** : Envoi d’alertes aux superviseurs en cas de situation critique.
-
----
 
 ## 🔒 Sécurité et authentification
 
@@ -158,3 +147,9 @@ Crée un fichier `.env` à la racine du dossier `📂server/` et ajoute :
 - **Hashage des mots de passe avec bcrypt** pour protéger les comptes utilisateurs.
 - **Protection contre les attaques XSS et CORS** grâce à **helmet**.
 
+
+## 🔔 Notifications
+
+- **Emails** : Envoi d’alertes aux superviseurs en cas de situation critique.
+
+![Sceen de la notification](../doc/emailnotification.png)

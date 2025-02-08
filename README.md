@@ -7,7 +7,6 @@ Une application web permettant de suivre et gérer le bien-être des étudiants 
 * **[Gestion des Branches GitHub](./doc/Guidelines.md)**
 * **[Documentation API](./doc/API.md)**
 * **[Configuration envoie de mails](./doc/ConfigurationMail.md)**
-* **[Fonctionnement de l'authentification](./doc/Authentication.md)**
 
 ## Fonctionnalités principales
 
@@ -33,6 +32,11 @@ Une application web permettant de suivre et gérer le bien-être des étudiants 
 - **Environement** : Docker, Postman, Workbench
 - **Gestion de projet** : Notion, Google Chat
 
+## Documentation Technique
+
+* **[server/readme.md](./server/README.md)**
+* **[client/readme.md](./client/README.md)**
+
 ## Installation
 
 ```bash
@@ -47,13 +51,15 @@ docker-compose up -d --build
 ## Auteur
 
 Développé dans le cadre d'un projet de groupe à l'IMTS par : 
-  [Manuel](https://github.com/Sir-Nunul)
-  [Thibaud](https://github.com/PhysicxG)
-  [Evan](https://github.com/EvanBenyahiaNorves)
-  [Cloë](https://github.com/LyliYoune)
-  [Cynthia](https://github.com/CynthiaStephan)
 
 <a href="https://github.com/CynthiaStephan/MyMood.app/graphs/contributors">
   <img src="https://contrib.rocks/image?repo=CynthiaStephan/MyMood.app" />
 </a>
+
+[Thibaud](https://github.com/PhysicxG) `Frontend`  
+[Evan](https://github.com/EvanBenyahiaNorves) `Frontend`  
+[Manuel](https://github.com/Sir-Nunul) `Frontend`  
+[Cloë](https://github.com/LyliYoune) `Backend`  
+[Cynthia](https://github.com/CynthiaStephan) `Backend`, `Gestion de projet`
+
 
